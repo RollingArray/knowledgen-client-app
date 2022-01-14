@@ -10,7 +10,7 @@
  * Last modified  : 2021-12-26 20:00:23
  */
  -->
-<ion-content lines="none" color="primary-gradient">
+<ion-content lines="none" color="primary">
     <ion-grid lines="none">
         <ion-row justify-content-center lines="none">
             <!-- landing image -->
@@ -24,8 +24,9 @@
                 offset-md="4"
                 offset-sm="4"
                 lines="none"
+                class="text-center"
             >
-                <img [src]="stringKey.IMAGE_LANDING" />
+                <ion-icon class="font-size-100-px" [src]="stringKey.IMAGE_ICON" ></ion-icon>
             </ion-col>
             <!-- landing image -->
 
@@ -59,7 +60,7 @@
             >
                 <ion-button
                     expand="block"
-                    color="primary"
+                    color="secondary"
                     [routerLink]="['/sign-up']"
                 >
                     <ion-icon [src]="stringKey.ICON_SIGN_UP"></ion-icon>
@@ -98,7 +99,7 @@
             >
                 <ion-button
                     expand="block"
-                    color="secondary"
+                    color="tertiary"
                     [routerLink]="['/sign-in']"
                 >
                     <ion-icon [src]="stringKey.ICON_LOGIN"></ion-icon>

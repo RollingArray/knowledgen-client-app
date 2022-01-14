@@ -209,8 +209,15 @@ td:last-child {
 	}
 }
 
+/*Variable width */
+@for $i from 1 through 500 {
+	.width-#{$i}-px {
+		width: #{$i}px;
+	}
+}
+
 .link{
-  color: var(--ion-color-secondary);
+  color: var(--ion-color-light);
   text-decoration: underline;
   cursor: pointer;
 }

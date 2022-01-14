@@ -626,7 +626,6 @@ export class StringKey {
 	
 	public static readonly IMAGE_BASE_PATH: string = "assets/images/";
 	public static readonly IMAGE_ICON: string = StringKey.IMAGE_BASE_PATH + "app_icon.svg";
-	public static readonly IMAGE_LANDING: string = StringKey.IMAGE_BASE_PATH + "app_landing.svg";
 	public static readonly IMAGE_AVATAR: string = StringKey.IMAGE_BASE_PATH + "app_avatar.svg";
 	public static readonly IMAGE_ICON_SMALL: string = StringKey.IMAGE_BASE_PATH + "app_icon-small.svg";
 
@@ -643,12 +642,9 @@ export class StringKey {
 	public static readonly COLOR_PRIMARY: string = "primary";
 	public static readonly COLOR_SECONDARY: string = "secondary";
 	public static readonly COLOR_TERNARY: string = "tertiary";
-	public static readonly COLOR_QUATERNARY: string = "quaternary";
-	public static readonly COLOR_SENARY: string = "senary";
 	public static readonly COLOR_SUCCESS: string = "success";
 	public static readonly COLOR_WARNING: string = "warning";
 	public static readonly COLOR_DANGER: string = "danger";
-	public static readonly COLOR_DARK: string = "dark";
 	public static readonly COLOR_MEDIUM: string = "medium";
 	public static readonly COLOR_LIGHT: string = "light";
 	public static readonly COLOR_INFO: string = "info";
