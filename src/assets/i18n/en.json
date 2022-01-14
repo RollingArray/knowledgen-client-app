@@ -1,0 +1,21 @@
+{
+    "appCore":{
+        "appName" : "Knowledgen",
+        "tag": "Connecting educator & learner",
+        "born" : "Designed & Crafted in India 🇮🇳 with ❤️"
+    },
+    "button": {
+        "signUp" : "Sign Up",
+        "enrollStudent" : "Enroll As Student",
+        "enrollTeacher" : "Enroll As Teacher",
+        "changeLanguage" : "Change Language",
+        "alreadyAccount" : "Already have an account?",
+        "signIn" : "Sign In"
+    },
+    "pageTitle": {
+        "selectlanguage" : "Select your preferred Language"
+    },
+    "pageSubTitle": {
+        "selectlanguage" : "Your selected language will be applicable across the app."
+    }
+}

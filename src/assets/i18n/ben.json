@@ -1,0 +1,18 @@
+{
+    "appCore":{
+        "appName" : "Knowledgen",
+        "tag": "সংযোগকারী শিক্ষাবিদ এবং শিক্ষার্থী"
+    },
+    "button": {
+        "signUp" : "নিবন্ধন করুন",
+        "enrollStudent" : "ছাত্র হিসাবে নথিভুক্ত",
+        "enrollTeacher" : "শিক্ষক হিসাবে নথিভুক্ত করুন",
+        "changeLanguage" : "ভাষা পরিবর্তন করুন"
+    },
+    "pageTitle": {
+        "selectlanguage" : "আপনার পছন্দের ভাষা নির্বাচন করুন"
+    },
+    "pageSubTitle": {
+        "selectlanguage" : "আপনার নির্বাচিত ভাষা অ্যাপ জুড়ে প্রযোজ্য হবে।"
+    }
+}

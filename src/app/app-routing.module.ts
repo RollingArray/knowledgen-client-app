@@ -1,22 +1,41 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from "./shared/guard/auth.guard";
+import { NgModule } from "@angular/core";
+import { ExtraOptions, PreloadAllModules, RouterModule, Routes } from "@angular/router";
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'folder/Inbox',
-    pathMatch: 'full'
-  },
-  {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  }
+	{
+		path: "",
+		redirectTo: "front",
+		pathMatch: "full",
+	},
+	{
+		path: "sign-in",
+		loadChildren: () => import('./pages/sign-in/sign-in.module').then( m => m.SignInPageModule)
+	},
+	{
+		path: "sign-up",
+		loadChildren: () => import('./pages/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+	},
+	{
+		path: "front",
+		loadChildren: () => import('./pages/front/front.module').then( m => m.FrontPageModule)
+	},
+	{
+		path: "go",
+		loadChildren: () => import('./pages/menu/menu.module').then( m => m.MenuPageModule),
+		canActivate: [AuthGuard],
+	},
 ];
 
+export const routingConfiguration: ExtraOptions = {
+	paramsInheritanceStrategy: 'always',
+	preloadingStrategy: PreloadAllModules
+  };
+
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ],
-  exports: [RouterModule]
+	imports: [
+		RouterModule.forRoot(routes, routingConfiguration),
+	],
+	exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

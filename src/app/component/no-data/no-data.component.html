@@ -1,0 +1,38 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * long description for the file
+ *
+ * @summary No data component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2021-11-23 19:33:50 
+ * Last modified  : 2021-11-23 20:20:44
+ */
+ -->
+<ion-card class="card-no-shadow">
+	
+	<ion-text color="dark">
+		
+		<h4>
+			<ion-icon [src]="stringKey.ICON_INFO"></ion-icon>
+			&nbsp;{{ text }}
+		</h4>
+	</ion-text>
+	
+
+	<p align="center">
+		<img src="assets/images/no_user.svg" *ngIf="user"/>
+		<img src="assets/images/no_project.svg" *ngIf="project"/>
+		<img src="assets/images/no_goal.svg" *ngIf="goal"/>
+		<img src="assets/images/no_activity.svg" *ngIf="activity"/>
+		<img src="assets/images/no_comment.svg" *ngIf="comment"/>
+		<img src="assets/images/no_filter.svg" *ngIf="filter"/>
+		<img src="assets/images/no_sprint.svg" *ngIf="sprint"/>
+		<img src="assets/images/no_member.svg" *ngIf="member"/>
+		<img src="assets/images/no_reviewer.svg" *ngIf="reviewer"/>
+		<img src="assets/images/no_diversity.svg" *ngIf="diversity"/>
+		<img src="assets/images/no_credibility.svg" *ngIf="credibility"/>
+	</p>
+</ion-card>

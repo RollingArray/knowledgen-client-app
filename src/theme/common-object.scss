@@ -1,0 +1,216 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Common object style
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2021-05-01 11:07:12 
+ * Last modified  : 2022-01-07 18:04:59
+ */
+
+/* Change autocomplete styles in WebKit */
+
+//  Change Autocomplete Styles in WebKit Browsers
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #323433;
+  -webkit-box-shadow: 0 0 0px 1000px #eaeaeb inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* popover*/
+.popover-arrow.sc-ion-popover-ios::after{
+  background-color: var(--ion-color-primary) !important;
+}
+
+ion-modal{
+  --border-radius: 10px !important;
+}
+ion-card {
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
+  margin: 16px;
+}
+
+ion-grid,
+ion-col {
+  margin: 0;
+  padding: 0;
+}
+
+.card-no-shadow {
+  box-shadow: none !important;
+}
+
+.selector {
+  cursor: pointer;
+}
+
+.highlight{
+  background-color: var(--ion-color-primary) !important;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
+  margin: 16px;
+  color: white;
+}
+
+/* Table properties*/
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+th {
+  background-color: var(--ion-color-light);
+  color: var(--ion-color-light-contrast);
+  text-align: center;
+  padding: 15px;
+  font-weight: bold;
+  font-size: 15px;
+  // border-right: 1px solid;
+  // border-color: var(--ion-color-primary);
+}
+th:last-child {
+  border-right: 0px;
+}
+
+td,
+th {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+td {
+  color: var(--ion-color-primary);
+  text-align: center;
+  padding: 5px;
+  font-size: 16px;
+  border-right: 1px solid;
+  border-color: var(--ion-color-medium);
+  line-height: 30px;
+  letter-spacing: 2px;
+  // background: url('/assets/custom-ion-icons/td-border.svg') bottom right no-repeat;
+}
+td:last-child {
+  border-right: 0px;
+}
+
+#dum-height {
+  height: 70px;
+}
+
+#overflow-content {
+  overflow-x: auto;
+}
+
+.footer-button {
+  height: 45px;
+  // width: 100px;
+  font-size: 20px;
+  margin: 10px;
+  --border-radius: 10px;
+}
+
+.inline-button {
+  height: 45px;
+  // width: 100px;
+  font-size: 20px;
+  margin: 10px;
+}
+
+/*Text alignment*/
+.text-center{
+  text-align: center;
+}
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
+.text-justify{
+  text-align: justify;
+}
+
+/*cursor*/
+.cursor-pointer
+{
+  cursor: pointer;
+}
+
+/* Float */
+.float-right
+{
+  float: right; 
+}
+
+.float-left
+{
+  float: left; 
+}
+
+/* display */
+.display-block
+{
+  display: block;
+}
+
+/* Variable width */
+@for $i from 1 through 100 {
+	.width-#{$i}-p {
+		width: (100% - $i) !important;
+	}
+  }
+
+/*Variable font size */
+@for $i from 10 through 100 {
+	.font-size-#{$i}-px {
+		font-size: #{$i}px;
+	}
+}
+
+/*Variable margin left */
+@for $i from 1 through 100 {
+	.margin-left-#{$i}-px {
+		margin-left: #{$i}px;
+	}
+}
+
+/*Variable margin top */
+@for $i from 1 through 100 {
+	.margin-top-#{$i}-px {
+		margin-top: #{$i}px;
+	}
+}
+
+/*Variable margin */
+@for $i from 1 through 100 {
+	.margin-#{$i}-px {
+		margin: #{$i}px;
+	}
+}
+
+/*Variable padding */
+@for $i from 1 through 100 {
+	.padding-#{$i}-px {
+		padding: #{$i}px;
+	}
+}
+
+.link{
+  color: var(--ion-color-secondary);
+  text-decoration: underline;
+  cursor: pointer;
+}
