@@ -30,13 +30,15 @@ export class ApiInterceptor implements HttpInterceptor
 
 		// add authorization header with jwt token if available
 		const currentUserToken: string = this.localStorageService.getToken();
+		const currentUserId: string = this.localStorageService.getActiveUserId();
 
 		// if token available add it as auth header
 		if (currentUserToken)
 		{
 			request = request.clone({
 				setHeaders: {
-					Auth: `${currentUserToken}`
+					Auth: `${currentUserToken}`,
+					UserId: currentUserId
 				}
 			});
 		}

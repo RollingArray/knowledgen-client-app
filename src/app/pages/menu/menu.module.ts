@@ -24,12 +24,12 @@ import { LearnMoreModule } from 'src/app/component/learn-more/learn-more.module'
 
 const routes: Routes = [
 	{
-		path: "my/space",
+		path: "",
 		component: MenuPage,
 		children: [
 			{
-				path: 'my/space',
-				loadChildren: () => import('../project-sprint/project-sprint.module').then(m => m.ProjectSprintPageModule)
+				path: 'course/material',
+				loadChildren: () => import('../course-material/course-material.module').then(m => m.CourseMaterialPageModule)
 			},
 		]
 	}

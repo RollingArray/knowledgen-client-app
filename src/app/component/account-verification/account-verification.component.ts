@@ -209,7 +209,7 @@ export class AccountVerificationComponent extends BaseFormComponent
 								.subscribe(async () =>
 								{
 									this.dismissModal();
-									this.router.navigate(["/go/my/space"]);
+									this.router.navigate(["/go/course/material"]);
 								});
 						}
 

@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-12-26 20:35:14 
- * Last modified  : 2021-12-26 20:35:48
+ * Last modified  : 2022-01-14 19:57:06
  */
 
 
@@ -16,5 +16,5 @@ export interface SlideModel
   info: string;
   imageName: string;
   buttonText: string;
-  helpUrl: string;
+  helpUrl?: string;
 }

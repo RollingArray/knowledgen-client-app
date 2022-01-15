@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2021-11-11 16:41:27
+ * Last modified  : 2022-01-14 20:06:18
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -25,7 +25,7 @@ export class SelectLanguageComponent extends BaseViewComponent implements OnInit
 {
 	constructor(
 		injector: Injector,
-		private translate: TranslateService,
+		private translateService: TranslateService,
 		private cookieService: CookieService
 	)
 	{
@@ -47,7 +47,7 @@ export class SelectLanguageComponent extends BaseViewComponent implements OnInit
 	async selectLang(language)
 	{
 		this.cookieService.set(LocalStoreKey.LANGUAGE, language);
-		this.translate.use(language);
+		this.translateService.use(language);
 		this.dismissModal();
 	}
 }

@@ -1,0 +1,114 @@
+<!--
+@author Ranjoy Sen
+@email ranjoy.sen@rockwellcollins.com
+@create date 2021-06-15 12:20:11
+@modify date 2021-06-15 12:20:11
+@desc Crud category component template
+-->
+
+<!-- header -->
+<ion-header [appScrollTracker]="scrollArea">
+    <ion-toolbar color="primary">
+        <ion-title>
+            {{ pageTitle | translate }}
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button
+                mode="ios"
+                fill="outline"
+                color="tertiary"
+                (click)="closeModal()"
+                > {{ 'button.discard' | translate }}</ion-button
+            >
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
+    <!-- page title -->
+    <app-page-info-title
+        [title]="pageTitle | translate "
+        [info]="pageSubTitle | translate "
+    ></app-page-info-title>
+	 <!-- fab -->
+	 <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button color="tertiary" (click)="submit()">
+            <ion-icon [src]="stringKey.ICON_SAVE"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <!-- fab -->
+	<form [formGroup]="formGroup" (ngSubmit)="submit()" color="primary" lines="none">
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<!-- category name -->
+					<ion-card color="secondary">
+						<ion-item color="secondary" lines="none">
+							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
+							<p>{{ 'formInfo.courseName' | translate }}</p>
+						</ion-item>
+						<ion-card lines="none" color="light">
+							<ion-item lines="none" color="light">
+								<ion-input
+									autocomplete="off"
+									formControlName="courseMaterialName"
+									type="text"
+								>
+								</ion-input>
+							</ion-item>
+							<ion-card
+								*ngIf="courseMaterialName.invalid && courseMaterialName.touched"
+								color="warning"
+							>
+								<ion-item color="warning">
+									<ion-icon
+										color="danger"
+										slot="start"
+										[src]="stringKey.ICON_WARNING"
+									></ion-icon>
+									{{'validation.required'|translate}}
+								</ion-item>
+							</ion-card>
+						</ion-card>
+					</ion-card>
+
+					<!-- category name -->
+
+					<!-- category description -->
+					<ion-card color="secondary">
+						<ion-item color="secondary" lines="none">
+							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
+							<p>{{ 'formInfo.courseDescription' | translate }}</p>
+						</ion-item>
+						<ion-card lines="none" color="light">
+							<ion-item lines="none" color="light">
+								<ion-textarea 
+									rows="6" cols="20" 
+									autocomplete="off"
+									formControlName="courseMaterialDescription"
+									type="text"
+								>
+								</ion-textarea>
+							</ion-item>
+							<ion-card
+								*ngIf="courseMaterialDescription.invalid && courseMaterialDescription.touched"
+								color="warning"
+							>
+								<ion-item color="warning">
+									<ion-icon
+										color="danger"
+										slot="start"
+										[src]="stringKey.ICON_WARNING"
+									></ion-icon>
+									{{'validation.required'|translate}}
+								</ion-item>
+							</ion-card>
+						</ion-card>
+					</ion-card>
+					<!-- category description -->
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</form>
+</ion-content>
+<!-- body -->

@@ -23,4 +23,22 @@ export class AlertService {
 					});
 			});
 	}
+
+	public async presentAlert(title: string, message: string, action: string) {
+		const basicAlert = await this.alertController.create({
+			header: title,
+			mode: 'ios',
+			message,
+			buttons: [
+				{
+					text: 'action',
+					handler: async _ => {
+						//
+					},
+					cssClass: 'ok-button',
+				},
+			],
+		});
+		await basicAlert.present();
+	}
 }

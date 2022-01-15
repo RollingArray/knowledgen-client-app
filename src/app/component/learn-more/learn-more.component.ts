@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-05 11:29:45 
- * Last modified  : 2021-12-26 18:02:41
+ * Last modified  : 2022-01-14 19:56:00
  */
 
 
@@ -77,14 +77,14 @@ export class LearnMoreComponent extends BaseViewComponent implements OnInit, OnD
 	 */
 	async knowledgeBase()
 	{
-		(window as any).open(ApiUrls.HELP, "_blank");
+		//(window as any).open(ApiUrls.HELP, "_blank");
 	}
 	/**
 	 * Faqs learn more component
 	 */
 	async faq()
 	{
-		(window as any).open(ApiUrls.GITHUB, "_blank");
+		//(window as any).open(ApiUrls.GITHUB, "_blank");
 	}
 
 	/**
@@ -92,7 +92,7 @@ export class LearnMoreComponent extends BaseViewComponent implements OnInit, OnD
 	 */
 	async tnc()
 	{
-		(window as any).open(ApiUrls.HELP_T_C, "_blank");
+		//(window as any).open(ApiUrls.HELP_T_C, "_blank");
 	}
 
 	/**
@@ -100,7 +100,7 @@ export class LearnMoreComponent extends BaseViewComponent implements OnInit, OnD
 	 */
 	async pp()
 	{
-		(window as any).open(ApiUrls.HELP_PP, "_blank");
+		//(window as any).open(ApiUrls.HELP_PP, "_blank");
 	}
 
 	/**

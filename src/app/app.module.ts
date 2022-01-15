@@ -14,6 +14,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInterceptor } from './shared/interceptor/api-interceptor.interceptor';
 import { I18nModule } from './shared/module/i18n.module';
 import { CookieService } from 'ngx-cookie-service';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -23,6 +26,12 @@ import { CookieService } from 'ngx-cookie-service';
 		IonicModule.forRoot(),
 		AppRoutingModule,
 		HttpClientModule,
+		// store
+		StoreModule.forRoot({}),
+		EffectsModule.forRoot([]),
+		StoreDevtoolsModule.instrument({
+			name: 'Knowledgen',
+		}),
 		ServiceWorkerModule.register('ngsw-worker.js', {
 			enabled: environment.production,
 			// Register the ServiceWorker as soon as the app is stable

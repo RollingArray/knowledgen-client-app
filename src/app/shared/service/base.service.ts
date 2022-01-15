@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 10:15:11 
- * Last modified  : 2021-11-12 17:11:20
+ * Last modified  : 2022-01-14 19:00:31
  */
 
 import { HttpClient } from "@angular/common/http";
@@ -184,6 +184,20 @@ export abstract class BaseService<T extends BaseModel> {
 	public put(url: string, data: T): Observable<T>
 	{
 		const apiData = this.httpClient.put<T>(url, data).pipe(
+			map((response: any) => response as T),
+			catchError((error) => of(null))
+		);
+		return apiData;
+	}
+
+	/**
+	 * Deletes base service
+	 * @param url 
+	 * @returns delete 
+	 */
+	public delete(url: string): Observable<T>
+	{
+		const apiData = this.httpClient.delete<T>(url).pipe(
 			map((response: any) => response as T),
 			catchError((error) => of(null))
 		);

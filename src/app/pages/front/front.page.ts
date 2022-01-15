@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-12-26 11:14:11 
- * Last modified  : 2021-12-26 19:57:08
+ * Last modified  : 2022-01-14 20:22:02
  */
 
 
@@ -70,7 +70,7 @@ export class FrontPage extends BaseViewComponent implements OnInit, OnDestroy {
 	 */
 	async ngOnInit() {
 		if (await this.activeUserId()) {
-			this.router.navigate(["/go/my/space"]);
+			this.router.navigate(["/go/course/material"]);
 		} else {
 			this.localStorageService
 				.getIntroStatus()
@@ -90,14 +90,7 @@ export class FrontPage extends BaseViewComponent implements OnInit, OnDestroy {
 	 * @returns  
 	 */
 	async activeUserId() {
-		let activeUserId = "";
-		this.localStorageService
-			.getActiveUserId()
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe((data: string) => {
-				activeUserId = data;
-			});
-		return activeUserId;
+		return this.localStorageService.getActiveUserId();
 	}
 
 	/**

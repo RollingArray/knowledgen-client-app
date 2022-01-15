@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-12-26 11:22:36 
- * Last modified  : 2021-12-26 11:24:30
+ * Last modified  : 2022-01-14 20:00:15
  */
 
 
@@ -34,8 +34,8 @@ export class PageInfoTitleComponent extends BaseViewComponent implements OnInit
 
 	/**
 	 * Input  of page info title component
+	 @Input() helpArticle = '';
 	 */
-	@Input() helpArticle = this.apiUrls.HELP;
 
 	/**
 	 * Creates an instance of page info title component.

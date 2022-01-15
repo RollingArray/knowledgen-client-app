@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 10:16:05 
- * Last modified  : 2022-01-07 18:29:03
+ * Last modified  : 2022-01-14 20:21:10
  */
 
 
@@ -87,11 +87,9 @@ export class LocalStorageService
 	 * Gets active user id
 	 * @returns active user id 
 	 */
-	getActiveUserId(): Observable<string> {
-		this.currentActiveUserId$ = new BehaviorSubject<string>(
-			localStorage.getItem(`${LocalStoreKey.LOGGED_IN_USER_ID}`)
-		);
-		return this.currentActiveUserId$.asObservable();
+	getActiveUserId()
+	{
+		return localStorage.getItem(`${LocalStoreKey.LOGGED_IN_USER_ID}`);
 	}
 
 	/**
