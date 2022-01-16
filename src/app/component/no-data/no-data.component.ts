@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-23 19:33:50 
- * Last modified  : 2021-11-23 19:35:48
+ * Last modified  : 2022-01-16 07:39:16
  */
 
 
@@ -29,58 +29,8 @@ export class NoDataComponent extends BaseViewComponent implements OnInit
 	/**
 	 * Input  of no data component
 	 */
-	@Input() user = false;
+	@Input() courseMaterial = false;
 
-	/**
-	 * Input  of no data component
-	 */
-	@Input() project = false;
-
-	/**
-	 * Input  of no data component
-	 */
-	@Input() comment = false;
-	
-	/**
-	 * Input  of no data component
-	 */
-	@Input() filter = false;
-
-	/**
-	 * Input  of no data component
-	 */
-	@Input() activity = false;
-
-	/**
-	 * Input  of no data component
-	 */
-	@Input() goal = false;
-
-	/**
-	 * Input  of no data component
-	 */
-	@Input() sprint = false;
-
-	/**
-	 * Input  of no data component
-	 */
-	@Input() member = false;
-
-	/**
-	 * Input  of no data component
-	 */
-	@Input() reviewer = false;
-
-	/**
-	 * Input  of no data component
-	 */
-	@Input() diversity = false;
-
-	/**
-	 * Input  of no data component
-	 */
-	@Input() credibility = false;
-	
 	/**
 	 * Creates an instance of no data component.
 	 * @param injector 

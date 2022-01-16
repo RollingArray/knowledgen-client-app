@@ -1,14 +1,15 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- * long description for the file
  *
- * @summary Project sprint page module
+ * @summary Course material page module
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-01-15 01:12:05
+ * Created at     : 2022-01-16 08:19:11 
+ * Last modified  : 2022-01-16 09:08:38
  */
+
+
 
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
@@ -27,28 +28,35 @@ import { RootStateModule } from "src/app/state/root/root.state.module";
 import { CourseMaterialPage } from "./course-material.page";
 
 const routes: Routes = [
-  {
-    path: '',
-    component: CourseMaterialPage
-  }
+	{
+		path: '',
+		component: CourseMaterialPage
+	},
+	{
+		path: ":courseMaterialId/details",
+		//loadChildren: () => import('../project-user-credibility/project-user-credibility.module').then( m => m.ProjectUserCredibilityPageModule),
+	}
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    IonicModule,
-    SharedModule,
-    NoDataModule,
-    PageInfoTitleModule,
-    PanelHeaderModule,
-    PanelInfoModule,
-    CustomFieldsModule,
-    I18nModule,
-    CourseMaterialStateModule,
-    RootStateModule,
-    CrudCourseMaterialModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [CourseMaterialPage]
+	imports: [
+		CommonModule,
+		IonicModule,
+		SharedModule,
+		NoDataModule,
+		PageInfoTitleModule,
+		PanelHeaderModule,
+		PanelInfoModule,
+		CustomFieldsModule,
+		I18nModule,
+		CourseMaterialStateModule,
+		RootStateModule,
+		CrudCourseMaterialModule,
+		RouterModule.forChild(routes)
+	],
+	declarations: [CourseMaterialPage],
+	providers: [
+
+	]
 })
-export class CourseMaterialPageModule {}
+export class CourseMaterialPageModule { }

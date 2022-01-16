@@ -35,10 +35,10 @@
 	},
 	"noData": {
 		"noNWAData": "No Network Activities Found",
-		"noAbsenceData": "No Attendances/Absences Found",
-		"noCostData": "No Cost Center/Orders Found"
+		"noCourseMaterialData": "You have not yet created any Course Materiels, add a new one !!"
 	},
 	"loading": {
+		"holdTight": "Hold tight, we are looking for your data",
 		"newCourseMaterial" : "Adding New Course Material ... Please wait" ,
 		"editCourseMaterial" : "Updating New Course Material ... Please wait" ,
 		"deleteCourseMaterial" : "Deleting New Course Material ... Please wait" 

@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:06:25 
- * Last modified  : 2022-01-15 00:23:07
+ * Last modified  : 2022-01-16 07:52:27
  */
 
 import { Injectable } from "@angular/core";
@@ -96,10 +96,10 @@ export class CourseMaterialStateEffects {
 							if (data.success) {
 
 								// build new skill object
-								const skillCourseMaterialId = data.resource.skillCourseMaterialId;
+								const courseMaterialId = data.resource.courseMaterialId;
 								const newCourseMaterial = {
 									...action.payload,
-									skillCourseMaterialId
+									courseMaterialId
 								};
 
 								// store newly added skill

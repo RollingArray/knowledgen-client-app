@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-01-15 00:29:32
+ * Last modified  : 2022-01-16 07:37:58
  */
 
 
@@ -623,6 +623,8 @@ export class StringKey {
 	public static readonly ICON_STUDENT: string = StringKey.ICON_BASE_PATH + "student.svg";
 	public static readonly ICON_TEACHER: string = StringKey.ICON_BASE_PATH + "teacher.svg";
 	public static readonly ICON_LANGUAGE: string = StringKey.ICON_BASE_PATH + "language.svg";
+	public static readonly ICON_NO_DATA: string = StringKey.ICON_BASE_PATH + "no-data.svg";
+	
 	
 	public static readonly IMAGE_BASE_PATH: string = "assets/images/";
 	public static readonly IMAGE_ICON: string = StringKey.IMAGE_BASE_PATH + "app_icon.svg";

@@ -1,13 +1,12 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- * long description for the file
  *
- * @summary Project sprint page
+ * @summary Course material page
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-01-15 02:02:01
+ * Last modified  : 2022-01-16 08:23:18
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -26,54 +25,83 @@ import { CrudCourseMaterialComponent } from 'src/app/component/crud-course-mater
 	templateUrl: "./course-material.page.html",
 	styleUrls: ["./course-material.page.scss"]
 })
-export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnDestroy {
+export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnDestroy
+{
 
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @readonly properties								|
+	 * -------------------------------------------------|
+	 */
 	readonly operationsEnum = OperationsEnum;
 
 	/**
-	 * @description Skill categories of home page
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @private Instance variable								|
+	 * -------------------------------------------------|
 	 */
-	 courseMaterials$!: Observable<CourseMaterialModel[]>;
 
-	 /**
-	  * Determines whether data has
-	  */
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @public Instance variable								|
+	 * -------------------------------------------------|
+	 */
+	/**
+	 * Description  of course material page
+	 */
+	courseMaterials$!: Observable<CourseMaterialModel[]>;
+
+	/**
+	 * Determines whether data has
+	 */
 	hasData$!: Observable<boolean>;
+
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * Getter & Setters									|
+	 * -------------------------------------------------|
+	 */
 	
-	// MyProjectPage constructor
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * Life cycle hook									|
+	 * -------------------------------------------------|
+	 */
+	/**
+	 * Creates an instance of course material page.
+	 * @param injector 
+	 * @param courseMaterialStateFacade 
+	 * @param rootStateFacade 
+	 * @param translateService 
+	 */
 	constructor(
 		injector: Injector,
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private rootStateFacade: RootStateFacade,
 		private translateService: TranslateService,
-	) {
+	)
+	{
 		super(injector);
 	}
 
 	/**
-	 * @description Descriptions search skill component
+	 * on init
 	 */
-	 async ngOnInit() {
-		this.loadData();
-	}
-
-	/**
-	 * @description Loads data
-	 */
-	public loadData() {
-		this.hasData$ = this.courseMaterialStateFacade.courseMaterialHasData$;
-		this.courseMaterials$ = this.courseMaterialStateFacade.allCourseMaterial$;
-
-		this.courseMaterials$.subscribe(data => console.log(data));
-		// if no data available ... make a api request, else work with store data
-		this.hasData$
+	async ngOnInit()
+	{
+		this.translateService
+			.get('loading.holdTight')
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(
-				hasData => !hasData ? this.getSkillCategories() : null
-			);
-
-		// Track category crud operation status
-		this.trackCategoryCrudOperationStatus();
+			.subscribe(async (data: string) =>
+			{
+				this.errorMessage = data;
+			});
+		this.loadData();
 	}
 
 	/**
@@ -84,21 +112,24 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	 */
 
 	/**
-	 * @description Tracks skill crud operation status
+	 * Descriptions course material page
 	 */
-	 trackCategoryCrudOperationStatus() {
+	private trackCourseMaterialCrudOperationStatus()
+	{
 		this.courseMaterialStateFacade
 			.courseMaterialCurdOperationStatus$
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (operationsStatus: OperationsEnum) => {
+			.subscribe(async (operationsStatus: OperationsEnum) =>
+			{
 
 				// track operation status and  
-				switch (operationsStatus) {
+				switch (operationsStatus)
+				{
 					case OperationsEnum.EDIT:
-						this.openCrudCategory();
+						this.openCrudCourseMaterial();
 						break;
 					case OperationsEnum.DELETE:
-						this.openCrudCategory();
+						this.openCrudCourseMaterial();
 						break;
 					default:
 						break;
@@ -107,9 +138,10 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	}
 
 	/**
-	 * @description Opens skill crud corner
+	 * Opens crud course material
 	 */
-	async openCrudCategory() {
+	private async openCrudCourseMaterial()
+	{
 		const modal = await this.modalController.create({
 			component: CrudCourseMaterialComponent,
 			cssClass: 'modal-view',
@@ -121,31 +153,108 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	}
 
 	/**
+	 * Checks if want to delete
+	 * @param selectedCourseMaterialModel 
+	 */
+	private checkIfWantToDelete(selectedCourseMaterialModel: CourseMaterialModel)
+	{
+		this.translateService
+			.get([
+				'actionAlert.confirm',
+				'actionAlert.delete',
+				'option.yes',
+				'option.no',
+			]).pipe(takeUntil(this.unsubscribe))
+			.subscribe(async data =>
+			{
+
+				const alert = await this.alertController.create({
+					header: `${data['actionAlert.confirm']}`,
+					subHeader: data['actionAlert.delete'],
+					cssClass: 'custom-alert',
+					mode: 'md',
+					buttons: [
+						{
+							cssClass: 'ok-button ',
+							text: data['option.yes'],
+							handler: (_) => selectedCourseMaterialModel ? this.courseMaterialStateFacade.actUponCourseMaterial(selectedCourseMaterialModel, OperationsEnum.DELETE) : undefined
+						},
+						{
+							cssClass: 'cancel-button',
+							text: data['option.no'],
+							handler: () =>
+							{
+							}
+						}
+					]
+				});
+				await alert.present();
+			});
+
+	}
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @Public methods									|
 	 * -------------------------------------------------|
 	 */
-	 
+
 	/**
-	 * @description Gets skill categories
+	 * @description Loads data
 	 */
-	async getSkillCategories() {
-		
-		this.translateService
-			.get('loading.category')
+	public loadData()
+	{
+		this.hasData$ = this.courseMaterialStateFacade.courseMaterialHasData$;
+		this.courseMaterials$ = this.courseMaterialStateFacade.allCourseMaterial$;
+
+		// if no data available ... make a api request, else work with store data
+		this.hasData$
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) => {
+			.subscribe(
+				hasData =>
+				{
+					if (!hasData)
+					{
+						this.translateService
+							.get('noData.noCourseMaterialData')
+							.pipe(takeUntil(this.unsubscribe))
+							.subscribe(async (data: string) =>
+							{
+								this.errorMessage = data;
+							});
+
+						this.getCourseMaterialMaterial()
+					}
+				}
+			);
+
+		// Track courseMaterial crud operation status
+		this.trackCourseMaterialCrudOperationStatus();
+	}
+
+	/**
+	 * Gets course material material
+	 */
+	async getCourseMaterialMaterial()
+	{
+
+		this.translateService
+			.get('loading.courseMaterial')
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(async (data: string) =>
+			{
 				await this.rootStateFacade.startLoading(data);
 			});
-		
+
 		this.courseMaterialStateFacade.requestCourseMaterial();
 	}
 
 	/**
-	 * Opens skill corner modal
+	 * Creates new course material
 	 */
-	 async createNewCourseMaterial() {
+	async createNewCourseMaterial()
+	{
 		// build a empty object
 		const courseMaterialModel: CourseMaterialModel = {
 			courseMaterialId: '',
@@ -157,61 +266,32 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 		this.courseMaterialStateFacade.actUponCourseMaterial(courseMaterialModel, OperationsEnum.CREATE);
 
 		//load crud modal
-		this.openCrudCategory();
-	 }
-	
-	 public onCourseMaterialAction(selectedCourseMaterialModel: CourseMaterialModel, operation: OperationsEnum) {
-		// new user skill 
+		this.openCrudCourseMaterial();
+	}
+
+	/**
+	 * Determines whether course material action on
+	 * @param selectedCourseMaterialModel 
+	 * @param operation 
+	 * @returns  
+	 */
+	public onCourseMaterialAction(selectedCourseMaterialModel: CourseMaterialModel, operation: OperationsEnum)
+	{
+		// add operation to the object
 		const courseMaterialModel: CourseMaterialModel = {
 			...selectedCourseMaterialModel,
 			operation: operation
 		};
 
-		// act upon operation category
-		if (operation === OperationsEnum.EDIT) {
+		// act upon operation
+		if (operation === OperationsEnum.EDIT)
+		{
 			return selectedCourseMaterialModel ? this.courseMaterialStateFacade.actUponCourseMaterial(courseMaterialModel, operation) : undefined;
 		}
-		else {
+		else
+		{
 			return courseMaterialModel ? this.checkIfWantToDelete(courseMaterialModel) : undefined;
 		}
-	 }
-	
-	/**
-	 * @description Checks if want to delete
-	 * @param userSkillModel 
-	 */
-	 private checkIfWantToDelete(selectedCourseMaterialModel: CourseMaterialModel) {
-		this.translateService
-			.get([
-				'actionAlert.confirm',
-				'actionAlert.delete',
-				'option.yes',
-				'option.no',
-			]).pipe(takeUntil(this.unsubscribe))
-			.subscribe(async data => {
-
-				const alert = await this.alertController.create({
-					header: `${data['actionAlert.confirm']}`,
-					subHeader: data['actionAlert.delete'],
-					cssClass: 'custom-alert',
-					mode: 'md',
-					buttons: [
-						{
-							cssClass: 'ok-button ',
-							text:  data['option.yes'],
-							handler: (_) => selectedCourseMaterialModel ? this.courseMaterialStateFacade.actUponCourseMaterial(selectedCourseMaterialModel, OperationsEnum.DELETE) : undefined
-						},
-						{
-							cssClass: 'cancel-button',
-							text:  data['option.no'],
-							handler: () => {
-							}
-						}
-					]
-				});
-				await alert.present();
-			});
-
 	}
 }
 

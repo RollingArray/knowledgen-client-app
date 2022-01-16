@@ -34,40 +34,52 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
-	 * Instance variable									|
+	 * @readonly properties								|
 	 * -------------------------------------------------|
 	 */
 
 	/**
-	 * @description Array key of navigate page
+	 * Description  of crud course material component
 	 */
 	readonly arrayKey = ArrayKey;
 
 	/**
-	 * @description Regex  of crud category component
+	 * Regex  of crud course material component
 	 */
 	readonly regex = Regex;
 
 	/**
-	 * @description String key of crud category component
+	 * String key of crud course material component
 	 */
 	readonly stringKey = StringKey;
 
 	/**
-	 * @description Api urls of crud category component
+	 * Api urls of crud course material component
 	 */
 	readonly apiUrls = ApiUrls;
 	 
 	/**
-	 * @description User skill of add new skill component
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @private Instance variable								|
+	 * -------------------------------------------------|
+	 */
+	/**
+	 * Description  of crud course material component
 	 */
 	private _courseMaterial!: CourseMaterialModel;
 
 	/**
-	 * Modal data of create edit project component
+	 * Modal data of crud course material component
 	 */
 	private _modalData!: ModalData;
 
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @public Instance variable								|
+	 * -------------------------------------------------|
+	 */
 	
 	/**
 	 * -------------------------------------------------|
@@ -96,9 +108,9 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	}
 
 	/**
-	 * @description Gets page title
+	 * Gets page sub title
 	 */
-	 public get pageSubTitle() {
+	public get pageSubTitle() {
 
 		let title = '';
 		if (this._courseMaterial.operation === OperationsEnum.CREATE) {
@@ -151,14 +163,14 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	}
 
 	/**
-	 * Gets category name
+	 * Gets course material name
 	 */
 	get courseMaterialName() {
 		return this.formGroup.get('courseMaterialName');
 	}
 
 	/**
-	 * Gets category description
+	 * Gets course material description
 	 */
 	get courseMaterialDescription() {
 		return this.formGroup.get('courseMaterialDescription');
@@ -172,10 +184,11 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 */
 
 	/**
-	 * Creates an instance of crud category component.
+	 * Creates an instance of crud course material component.
 	 * @param injector 
-	 * @param messageService 
+	 * @param toastService 
 	 * @param translateService 
+	 * @param alertService 
 	 * @param courseMaterialStateFacade 
 	 * @param rootStateFacade 
 	 */
@@ -189,16 +202,15 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	) {
 		super(injector);
 
-		// get act upon category model from store
+		// get act upon curd model from store
 		this.courseMaterialStateFacade.operationCourseMaterial$.subscribe(
 			data => this._courseMaterial = data
 		);
 
-		console.log(this._courseMaterial);
 		// build form
 		this.buildFrom();
 
-		// if the operation is delete, submit the data
+		//if the operation is delete, submit the data
 		if (this._courseMaterial.operation === OperationsEnum.DELETE) {
 			this.submit();
 		}
@@ -280,17 +292,15 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 * @description Inits loading
 	 */
 	private initLoading() {
-		// const loading = this.loading;
-		// console.log(loading);
-		// // present loader
-		// this.translateService
-		// 	.get(loading)
-		// 	.pipe(takeUntil(this.unsubscribe))
-		// 	.subscribe(async (data: string) => {
-		// 		await this.rootStateFacade.startLoading(data);
-		// 	});
+		const loading = this.loading;
 		
-			this.rootStateFacade.startLoading('adfa das');
+		// present loader
+		this.translateService
+			.get(loading)
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(async (data: string) => {
+				await this.rootStateFacade.startLoading(data);
+			});
 	}
 
 	/**
@@ -331,13 +341,11 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	}
 
 	/**
-	 * @description Launch skill crud operation
+	 * Launchs operation
 	 */
-	private launchCourseMaterialOperation() {
+	private launchOperation() {
 
 		const courseMaterialModel: CourseMaterialModel = this.buildDataModelToPass();
-
-		console.log("this._courseMaterial.operation ", this._courseMaterial.operation);
 
 		switch (this._courseMaterial.operation) {
 			case OperationsEnum.CREATE:
@@ -382,7 +390,7 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 				});
 		} else {
 			this.initLoading();
-			this.launchCourseMaterialOperation();
+			this.launchOperation();
 			this.crudOperationCompletion();
 		}
 	}
@@ -391,12 +399,10 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 * Closes modal
 	 */
 	public closeModal() {
-		// discard active category operation
+		// discard active crud operation
 		const courseMaterialModel: CourseMaterialModel = {};
 		this.courseMaterialStateFacade.actUponCourseMaterial(courseMaterialModel, OperationsEnum.NONE);
 
 		this.modalController.dismiss();
 	}
-
-
 }

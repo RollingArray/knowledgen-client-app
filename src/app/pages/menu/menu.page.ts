@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2022-01-14 20:21:29
+ * Last modified  : 2022-01-16 07:33:42
  */
 
 
@@ -248,7 +248,7 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	 * Loads data
 	 */
 	 async loadData() {
-		this.loadingService.present(`${StringKey.API_REQUEST_MESSAGE_1}`);
+		//this.loadingService.present(`${StringKey.API_REQUEST_MESSAGE_1}`);
 	 }
 	
 	/**

@@ -1,47 +1,48 @@
 <!--
-@author Ranjoy Sen
-@email ranjoy.sen@rockwellcollins.com
-@create date 2021-06-15 12:20:11
-@modify date 2021-06-15 12:20:11
-@desc Crud category component template
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * long description for the file
+ *
+ * @summary short description for the file
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-01-16 08:20:54 
+ * Last modified  : 2022-01-16 08:20:54 
+ */
 -->
 
 <!-- header -->
 <ion-header [appScrollTracker]="scrollArea">
-    <ion-toolbar color="primary">
-        <ion-title>
-            {{ pageTitle | translate }}
-        </ion-title>
-        <ion-buttons slot="end">
-            <ion-button
-                mode="ios"
-                fill="outline"
-                color="tertiary"
-                (click)="closeModal()"
-                > {{ 'button.discard' | translate }}</ion-button
-            >
-        </ion-buttons>
-    </ion-toolbar>
+	<ion-toolbar color="primary">
+		<ion-title>
+			{{ pageTitle | translate }}
+		</ion-title>
+		<ion-buttons slot="end">
+			<ion-button mode="ios" fill="outline" color="tertiary" (click)="closeModal()"> {{ 'button.discard' |
+				translate }}</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
 </ion-header>
+<!-- header -->
 
 <ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
-    <!-- page title -->
-    <app-page-info-title
-        [title]="pageTitle | translate "
-        [info]="pageSubTitle | translate "
-    ></app-page-info-title>
-	 <!-- fab -->
-	 <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-        <ion-fab-button color="tertiary" (click)="submit()">
-            <ion-icon [src]="stringKey.ICON_SAVE"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
-    <!-- fab -->
+	<!-- page title -->
+	<app-page-info-title [title]="pageTitle | translate " [info]="pageSubTitle | translate "></app-page-info-title>
+	<!-- fab -->
+	<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+		<ion-fab-button color="tertiary" (click)="submit()">
+			<ion-icon [src]="stringKey.ICON_SAVE"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<!-- fab -->
+
+	<!-- form -->
 	<form [formGroup]="formGroup" (ngSubmit)="submit()" color="primary" lines="none">
 		<ion-grid>
 			<ion-row>
 				<ion-col>
-					<!-- category name -->
+					<!-- course name -->
 					<ion-card color="secondary">
 						<ion-item color="secondary" lines="none">
 							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
@@ -49,32 +50,20 @@
 						</ion-item>
 						<ion-card lines="none" color="light">
 							<ion-item lines="none" color="light">
-								<ion-input
-									autocomplete="off"
-									formControlName="courseMaterialName"
-									type="text"
-								>
+								<ion-input autocomplete="off" formControlName="courseMaterialName" type="text">
 								</ion-input>
 							</ion-item>
-							<ion-card
-								*ngIf="courseMaterialName.invalid && courseMaterialName.touched"
-								color="warning"
-							>
+							<ion-card *ngIf="courseMaterialName.invalid && courseMaterialName.touched" color="warning">
 								<ion-item color="warning">
-									<ion-icon
-										color="danger"
-										slot="start"
-										[src]="stringKey.ICON_WARNING"
-									></ion-icon>
+									<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING"></ion-icon>
 									{{'validation.required'|translate}}
 								</ion-item>
 							</ion-card>
 						</ion-card>
 					</ion-card>
+					<!-- course name -->
 
-					<!-- category name -->
-
-					<!-- category description -->
+					<!-- course description -->
 					<ion-card color="secondary">
 						<ion-item color="secondary" lines="none">
 							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
@@ -82,33 +71,24 @@
 						</ion-item>
 						<ion-card lines="none" color="light">
 							<ion-item lines="none" color="light">
-								<ion-textarea 
-									rows="6" cols="20" 
-									autocomplete="off"
-									formControlName="courseMaterialDescription"
-									type="text"
-								>
+								<ion-textarea rows="6" cols="20" autocomplete="off"
+									formControlName="courseMaterialDescription" type="text">
 								</ion-textarea>
 							</ion-item>
-							<ion-card
-								*ngIf="courseMaterialDescription.invalid && courseMaterialDescription.touched"
-								color="warning"
-							>
+							<ion-card *ngIf="courseMaterialDescription.invalid && courseMaterialDescription.touched"
+								color="warning">
 								<ion-item color="warning">
-									<ion-icon
-										color="danger"
-										slot="start"
-										[src]="stringKey.ICON_WARNING"
-									></ion-icon>
+									<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING"></ion-icon>
 									{{'validation.required'|translate}}
 								</ion-item>
 							</ion-card>
 						</ion-card>
 					</ion-card>
-					<!-- category description -->
+					<!-- course description -->
 				</ion-col>
 			</ion-row>
 		</ion-grid>
 	</form>
+	<!-- form -->
 </ion-content>
 <!-- body -->

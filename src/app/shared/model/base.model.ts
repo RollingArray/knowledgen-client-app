@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-04-29 11:19:35 
- * Last modified  : 2022-01-14 19:04:07
+ * Last modified  : 2022-01-16 07:42:36
  */
 
 import { OperationsEnum } from '../enum/operations.enum';
@@ -24,4 +24,6 @@ export interface BaseModel extends OperatingUserModel
 	crudReturn?: any;
 	operation?: OperationsEnum;
 	resource?: any;
+	createdAt?: string;
+	updatedAt?: string;
 }
