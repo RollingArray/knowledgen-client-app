@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:23:54 
- * Last modified  : 2022-01-14 19:51:32
+ * Last modified  : 2022-01-19 23:31:18
  */
 
 import {
@@ -70,7 +70,7 @@ export const selectCourseMaterialHasData = createSelector(
  * @description Selectors - Course material by courseMaterial id
  */
 const selectCourseMaterialByCourseMaterialId = (courseMaterialIdId: string) => 
-  createSelector(selectCourseMaterialState, (state) => state[courseMaterialIdId]);
+	createSelector(selectCourseMaterialState, (state) => state.entities[courseMaterialIdId]);
 
 /**
  * @description export User skill categories query to access all selectors
