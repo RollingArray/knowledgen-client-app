@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-23 19:33:50 
- * Last modified  : 2022-01-16 07:39:16
+ * Last modified  : 2022-01-20 01:35:49
  */
 
 
@@ -24,7 +24,7 @@ export class NoDataComponent extends BaseViewComponent implements OnInit
 	/**
 	 * Input  of no data component
 	 */
-	@Input() text;
+	@Input() text: string;
 
 	/**
 	 * Input  of no data component
