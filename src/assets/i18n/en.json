@@ -13,7 +13,11 @@
 		"signIn": "Sign In",
 		"ok": "Okay",
 		"discard": "Discard",
-		"cancel": "Cancel"
+		"cancel": "Cancel",
+		"add": "Add",
+		"addSubChildMenu": "Add Topic [Level 3]",
+		"addChildMenu": "Add Topic [Level 2]",
+		"addMenu": "Add Topic [Level 1]"
 	},
 	"pageTitle": {
 		"selectLanguage": "Select your preferred Language",
@@ -35,9 +39,11 @@
 	},
 	"noData": {
 		"noNWAData": "No Network Activities Found",
-		"noCourseMaterialData": "You have not yet created any Course Materiels, add a new one !!"
+		"noCourseMaterialData": "You have not yet created any Course Materiels, add a new one !!",
+		"noTopic" : "No Topic has been found. Create your first topic !!"
 	},
 	"loading": {
+		"wait": "Loading ... Please wait",
 		"holdTight": "Hold tight, we are looking for your data",
 		"newCourseMaterial" : "Adding New Course Material ... Please wait" ,
 		"editCourseMaterial" : "Updating New Course Material ... Please wait" ,
