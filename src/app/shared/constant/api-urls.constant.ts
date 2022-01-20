@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-15 21:34:14 
- * Last modified  : 2022-01-15 02:20:30
+ * Last modified  : 2022-01-19 21:03:59
  */
 
 import { environment } from "../../../environments/environment";
@@ -30,4 +30,11 @@ export class ApiUrls {
 	public static readonly COURSE_MATERIAL_ADD: string = ApiUrls.API_BASE_PATH + "/course/material/add";
 	public static readonly COURSE_MATERIAL_EDIT: string = ApiUrls.API_BASE_PATH + "/course/material/edit";
 	public static readonly COURSE_MATERIAL_DELETE: string = ApiUrls.API_BASE_PATH + "/course/material/delete";
+
+	public static readonly COURSE_MATERIAL_MENU: string = ApiUrls.API_BASE_PATH + "/course/material/menu/all";
+
+	public static readonly COURSE_MATERIAL_MENU_ADD: string = ApiUrls.API_BASE_PATH + "/course/material/menu/add";
+	public static readonly COURSE_MATERIAL_CHILD_MENU_ADD: string = ApiUrls.API_BASE_PATH + "/course/material/menu/child/add";
+	public static readonly COURSE_MATERIAL_SUB_CHILD_MENU_ADD: string = ApiUrls.API_BASE_PATH + "/course/material/menu/child/sub/add";
+
 }
