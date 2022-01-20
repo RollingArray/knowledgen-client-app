@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:19:11 
- * Last modified  : 2022-01-16 09:08:38
+ * Last modified  : 2022-01-20 00:24:32
  */
 
 
@@ -34,7 +34,7 @@ const routes: Routes = [
 	},
 	{
 		path: ":courseMaterialId/details",
-		//loadChildren: () => import('../project-user-credibility/project-user-credibility.module').then( m => m.ProjectUserCredibilityPageModule),
+		loadChildren: () => import('../course-material-details/course-material-details.module').then( m => m.CourseMaterialDetailsPageModule),
 	}
 ];
 

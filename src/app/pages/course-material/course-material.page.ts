@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-01-16 08:23:18
+ * Last modified  : 2022-01-20 01:23:05
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -292,6 +292,11 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 		{
 			return courseMaterialModel ? this.checkIfWantToDelete(courseMaterialModel) : undefined;
 		}
+	}
+
+	public navigateToCourseMaterialDetails(courseMaterialId: string)
+	{
+		this.router.navigate([courseMaterialId, 'details', 'article', 'none'], { relativeTo: this.activatedRoute });
 	}
 }
 

@@ -8,7 +8,7 @@
 * @author code@rollingarray.co.in
 *
 * Created at     : 2022-01-16 08:18:18 
- * Last modified  : 2022-01-16 08:18:43
+ * Last modified  : 2022-01-18 23:23:12
 */	
  -->
 <!-- header -->
@@ -57,7 +57,7 @@
 					*ngFor="let eachCourseMaterials of (courseMaterials$ | async)">
 
 					<!-- each container -->
-					<ion-card>
+					<ion-card (click)="navigateToCourseMaterialDetails(eachCourseMaterials.courseMaterialId)">
 
 						<!-- data -->
 						<img [src]="stringKey.IMAGE_PANEL_HEADER" />
