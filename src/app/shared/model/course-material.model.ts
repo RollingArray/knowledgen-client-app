@@ -12,8 +12,9 @@
 import { BaseModel } from "./base.model";
 
 
-export interface CourseMaterialModel extends BaseModel{
-  courseMaterialId?: string;
-  courseMaterialName?: string;
-  courseMaterialDescription ?: string;
+export interface CourseMaterialModel extends BaseModel
+{
+	courseMaterialId?: string;
+	courseMaterialName?: string;
+	courseMaterialDescription?: string;
 }
