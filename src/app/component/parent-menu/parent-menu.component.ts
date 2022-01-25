@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-01-20 01:14:17
+ * Last modified  : 2022-01-25 18:10:51
  */
 
 
@@ -117,7 +117,6 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 
 		this.parentMenuMenu$.subscribe(data =>
 			{
-				console.log("a" , data);
 				this.router.navigate([
 					'go/course/material',
 					this.courseMaterialId,
