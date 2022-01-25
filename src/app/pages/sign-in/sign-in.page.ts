@@ -7,11 +7,12 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-10-31 17:23:00 
- * Last modified  : 2021-12-26 19:39:40
+ * Last modified  : 2022-01-20 18:31:59
  */
 
 import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
 import { Router } from "@angular/router";
+import { CookieService } from "ngx-cookie-service";
 import { takeUntil } from "rxjs/operators";
 import { AccountVerificationComponent } from "src/app/component/account-verification/account-verification.component";
 import { BaseFormComponent } from "src/app/component/base/base-form.component";
@@ -46,7 +47,8 @@ export class SignInPage extends BaseFormComponent implements OnInit, OnDestroy
 		private userService: UserService,
 		private router: Router,
 		private localStorageService: LocalStorageService,
-		private analyticsService: AnalyticsService
+		private analyticsService: AnalyticsService,
+		private cookieService: CookieService
 	)
 	{
 		super(injector);
