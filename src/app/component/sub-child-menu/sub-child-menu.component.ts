@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-01-20 00:48:28
+ * Last modified  : 2022-01-25 18:11:00
  */
 
 import { Component, OnInit, Input, Injector } from "@angular/core";
@@ -175,7 +175,6 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 								await this.rootStateFacade.startLoading(data['loading.wait']);
 												
 								this.courseMaterialMenuStateFacade.addNewSubChildMenu(subChildMenuModel);
-								console.log(subChildMenuModel);
 							}
 						}
 					]
