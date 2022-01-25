@@ -7,30 +7,32 @@
  */
 
  import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, Injector } from "@angular/core";
-import { takeUntil } from "rxjs/operators";
+import { Component, OnInit, Injector, ElementRef, ViewChild } from "@angular/core";
+import { debounceTime, distinctUntilChanged, map, takeUntil } from "rxjs/operators";
 import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { Regex } from "src/app/shared/constant/regex.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
-import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
+import { AvailabilityPlannerModel } from "src/app/shared/model/availability-planner.model";
 import { ModalData } from "src/app/shared/model/modal-data.model";
 import { ToastService } from "src/app/shared/service/toast.service";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
-import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
+import { AvailabilityPlannerStateFacade } from 'src/app/state/availability-planner/availability-planner.state.facade';
 import { AlertService } from 'src/app/shared/service/alert.service';
-
-
-
+import { CookieService } from 'ngx-cookie-service';
+import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
+import { DatePipe } from '@angular/common';
+import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
+import { fromEvent } from 'rxjs';
 
 @Component({
-	selector: 'crud-course-material',
-	templateUrl: './crud-course-material.component.html',
-	styleUrls: ['./crud-course-material.component.scss'],
+	selector: 'crud-availability-planner',
+	templateUrl: './crud-availability-planner.component.html',
+	styleUrls: ['./crud-availability-planner.component.scss'],
 })
-export class CrudCourseMaterialComponent extends BaseFormComponent implements OnInit {
+export class CrudAvailabilityPlannerComponent extends BaseFormComponent implements OnInit {
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -67,13 +69,23 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	/**
 	 * Description  of crud course material component
 	 */
-	private _courseMaterial!: CourseMaterialModel;
+	private _availabilityPlanner!: AvailabilityPlannerModel;
 
 	/**
 	 * Modal data of crud course material component
 	 */
 	private _modalData!: ModalData;
 
+	private _from = '';
+
+	private _to = '';
+
+	private _keyWordContext = '';
+
+	/**
+	 * @description View child of search skill component
+	 */
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -94,14 +106,14 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	public get pageTitle() {
 
 		let title = '';
-		if (this._courseMaterial.operation === OperationsEnum.CREATE) {
-			title = 'pageTitle.addCourse';
+		if (this._availabilityPlanner.operation === OperationsEnum.CREATE) {
+			title = 'pageTitle.addSchedule';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.EDIT) {
-			title = 'pageTitle.editCourse';
+		else if (this._availabilityPlanner.operation === OperationsEnum.EDIT) {
+			title = 'pageTitle.editSchedule';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.DELETE) {
-			title = 'pageTitle.deleteCourse';
+		else if (this._availabilityPlanner.operation === OperationsEnum.DELETE) {
+			title = 'pageTitle.deleteSchedule';
 		}
 
 		return title;
@@ -113,14 +125,14 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	public get pageSubTitle() {
 
 		let title = '';
-		if (this._courseMaterial.operation === OperationsEnum.CREATE) {
-			title = 'pageSubTitle.addCourse';
+		if (this._availabilityPlanner.operation === OperationsEnum.CREATE) {
+			title = 'pageSubTitle.addSchedule';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.EDIT) {
-			title = 'pageSubTitle.editCourse';
+		else if (this._availabilityPlanner.operation === OperationsEnum.EDIT) {
+			title = 'pageSubTitle.editSchedule';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.DELETE) {
-			title = 'pageSubTitle.deleteCourse';
+		else if (this._availabilityPlanner.operation === OperationsEnum.DELETE) {
+			title = 'pageSubTitle.deleteSchedule';
 		}
 
 		return title;
@@ -131,14 +143,14 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 */
 	public get loading() {
 		let loading = '';
-		if (this._courseMaterial.operation === OperationsEnum.CREATE) {
-			loading = 'loading.newCourseMaterial';
+		if (this._availabilityPlanner.operation === OperationsEnum.CREATE) {
+			loading = 'loading.newAvailabilityPlanner';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.EDIT) {
-			loading = 'loading.editCourseMaterial';
+		else if (this._availabilityPlanner.operation === OperationsEnum.EDIT) {
+			loading = 'loading.editAvailabilityPlanner';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.DELETE) {
-			loading = 'loading.deleteCourseMaterial';
+		else if (this._availabilityPlanner.operation === OperationsEnum.DELETE) {
+			loading = 'loading.deleteAvailabilityPlanner';
 		}
 
 		return loading;
@@ -149,14 +161,17 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 */
 	public get response() {
 		let response = '';
-		if (this._courseMaterial.operation === OperationsEnum.CREATE) {
-			response = 'response.newCourseMaterial';
+		if (this._availabilityPlanner.operation === OperationsEnum.CREATE && this.isUserTypeTeacher) {
+			response = 'response.teacherNewAvailabilityPlanner';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.EDIT) {
-			response = 'response.editCourseMaterial';
+		else if (this._availabilityPlanner.operation === OperationsEnum.CREATE && this.isUserTypeStudent) {
+			response = 'response.studentNewAvailabilityPlanner';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.DELETE) {
-			response = 'response.deleteCourseMaterial';
+		else if (this._availabilityPlanner.operation === OperationsEnum.EDIT) {
+			response = 'response.editAvailabilityPlanner';
+		}
+		else if (this._availabilityPlanner.operation === OperationsEnum.DELETE) {
+			response = 'response.deleteAvailabilityPlanner';
 		}
 
 		return response;
@@ -165,15 +180,59 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	/**
 	 * Gets course material name
 	 */
-	get courseMaterialName() {
-		return this.formGroup.get('courseMaterialName');
+	get availabilityFrom() {
+		return this.formGroup.get('availabilityFrom');
 	}
 
 	/**
 	 * Gets course material description
 	 */
-	get courseMaterialDescription() {
-		return this.formGroup.get('courseMaterialDescription');
+	get availabilityTo() {
+		return this.formGroup.get('availabilityTo');
+	}
+
+	get availabilityContext() {
+		return this.formGroup.get('availabilityContext');
+	}
+
+	get onlineMeetingUrl() {
+		return this.formGroup.get('onlineMeetingUrl');
+	}
+
+	get to(){
+		return this._to;
+	}
+
+	get from(){
+		return this._from;
+	}
+
+	/**
+	 * Gets user type
+	 */
+	get userType()
+	{
+		return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE)
+	}
+
+	get isUserTypeTeacher()
+	{
+		return this.userType === UserTypeEnum.Teacher ? true : false;
+	}
+
+	get isUserTypeStudent()
+	{
+		return this.userType === UserTypeEnum.Student ? true : false;
+	}
+
+	get keyWordContext()
+	{
+		return this._keyWordContext;
+	}
+
+	get availabilityPlanner()
+	{
+		return this._availabilityPlanner;
 	}
 
 	/**
@@ -189,7 +248,7 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 * @param toastService 
 	 * @param translateService 
 	 * @param alertService 
-	 * @param courseMaterialStateFacade 
+	 * @param availabilityPlannerStateFacade 
 	 * @param rootStateFacade 
 	 */
 	constructor(
@@ -197,21 +256,23 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 		private toastService: ToastService,
 		private translateService: TranslateService,
 		private alertService: AlertService,
-		private courseMaterialStateFacade: CourseMaterialStateFacade,
-		private rootStateFacade: RootStateFacade
+		private availabilityPlannerStateFacade: AvailabilityPlannerStateFacade,
+		private rootStateFacade: RootStateFacade,
+		private cookieService: CookieService,
+		private datePipe: DatePipe
 	) {
 		super(injector);
 
 		// get act upon curd model from store
-		this.courseMaterialStateFacade.operationCourseMaterial$.subscribe(
-			data => this._courseMaterial = data
+		this.availabilityPlannerStateFacade.operationAvailabilityPlanner$.subscribe(
+			data => this._availabilityPlanner = data
 		);
 
 		// build form
 		this.buildFrom();
 
 		//if the operation is delete, submit the data
-		if (this._courseMaterial.operation === OperationsEnum.DELETE) {
+		if (this._availabilityPlanner.operation === OperationsEnum.DELETE) {
 			this.submit();
 		}
 	}
@@ -220,6 +281,10 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 * on init
 	 */
 	ngOnInit() {
+		//
+	}
+
+	ngAfterViewInit() {
 		//
 	}
 
@@ -235,8 +300,10 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 */
 	private setPassedValueToFrom() {
 		const form = this.formGroup.value;
-		form.courseMaterialName = this._courseMaterial.courseMaterialName;
-		form.courseMaterialDescription = this._courseMaterial.courseMaterialDescription;
+		form.availabilityContext = this._availabilityPlanner.availabilityDate;
+		form.onlineMeetingUrl = this._availabilityPlanner.onlineMeetingUrl;
+		this._from = this._availabilityPlanner.availabilityFrom;
+		this._to = this._availabilityPlanner.availabilityTo;
 	}
 
 	/**
@@ -245,18 +312,17 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	private buildFrom() {
 		
 		this.formGroup = this.formBuilder.group({
-			courseMaterialName: [
-				this._courseMaterial.courseMaterialName,
+			availabilityContext: [
+				this._availabilityPlanner.availabilityContext,
 				this.validators().compose([
 					// tslint:disable:no-unbound-method 
 					this.validators().required
 				]),
 			],
-			courseMaterialDescription: [
-				this._courseMaterial.courseMaterialDescription,
+			onlineMeetingUrl: [
+				this._availabilityPlanner.onlineMeetingUrl,
 				this.validators().compose([
 					// tslint:disable:no-unbound-method 
-					this.validators().required
 				]),
 			],
 		});
@@ -271,11 +337,15 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	private buildDataModelToPass() {
 		// build data
 		const form = this.formGroup.value;
-		const model: CourseMaterialModel = {
-			courseMaterialId: this._courseMaterial.courseMaterialId,
-			courseMaterialName: form.courseMaterialName,
-			courseMaterialDescription: form.courseMaterialDescription,
-			operation: this._courseMaterial.operation,
+		const model: AvailabilityPlannerModel = {
+			plannerId: form.plannerId,
+			availabilityDate : this._availabilityPlanner.availabilityDate,
+			availabilityFrom : this.submitTimeFormat(this._from),
+			availabilityTo : this.submitTimeFormat(this._to),
+			availabilityContext : form.availabilityContext,
+			onlineMeetingUrl : form.onlineMeetingUrl,
+			onlineMeetingType: 'Zoom',
+			operationType: this._availabilityPlanner.operation,
 		};
 
 		return model;
@@ -307,8 +377,8 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 * @description Cruds operation completion
 	 */
 	private crudOperationCompletion() {
-		this.courseMaterialStateFacade
-			.courseMaterialCurdOperationStatus$
+		this.availabilityPlannerStateFacade
+			.availabilityPlannerCurdOperationStatus$
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(async (operationsStatus: OperationsEnum) => {
 
@@ -345,17 +415,17 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 */
 	private launchOperation() {
 
-		const courseMaterialModel: CourseMaterialModel = this.buildDataModelToPass();
+		const availabilityPlannerModel: AvailabilityPlannerModel = this.buildDataModelToPass();
 
-		switch (this._courseMaterial.operation) {
+		switch (this._availabilityPlanner.operation) {
 			case OperationsEnum.CREATE:
-				this.courseMaterialStateFacade.addNewCourseMaterial(courseMaterialModel);
+				this.availabilityPlannerStateFacade.addNewAvailabilityPlanner(availabilityPlannerModel);
 				break;
 			case OperationsEnum.EDIT:
-				this.courseMaterialStateFacade.editCourseMaterial(courseMaterialModel);
+				this.availabilityPlannerStateFacade.editAvailabilityPlanner(availabilityPlannerModel);
 				break;
 			case OperationsEnum.DELETE:
-				this.courseMaterialStateFacade.deleteCourseMaterial(courseMaterialModel);
+				this.availabilityPlannerStateFacade.deleteAvailabilityPlanner(availabilityPlannerModel);
 				break;
 			default:
 				break;
@@ -372,7 +442,8 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	/**
 	 * Submits create edit project component
 	 */
-	async submit() {
+	async submit()
+	{
 		if (this.formGroup.invalid) {
 			this.translateService
 				.get([
@@ -399,9 +470,40 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 */
 	public closeModal() {
 		// discard active crud operation
-		const courseMaterialModel: CourseMaterialModel = {};
-		this.courseMaterialStateFacade.actUponCourseMaterial(courseMaterialModel, OperationsEnum.NONE);
+		const availabilityPlannerModel: AvailabilityPlannerModel = {};
+		this.availabilityPlannerStateFacade.actUponAvailabilityPlanner(availabilityPlannerModel, OperationsEnum.NONE);
 
 		this.modalController.dismiss();
+	}
+
+	formatDate(date: string, type: string)
+	{
+		const fillDate = `${this._availabilityPlanner.availabilityDate} ${date}:00`
+
+		const form = this.formGroup.value;
+		switch (type) {
+			case 'availabilityFrom':
+				this._from = this.datePipe.transform(fillDate, 'H:mm:ss');
+				break;
+			case 'availabilityTo':
+				this._to = this.datePipe.transform(fillDate, 'H:mm:ss');
+				break;
+		
+			default:
+				break;
+		}
+	}
+
+	submitTimeFormat(time: string)
+	{
+		const fillDate = `${this._availabilityPlanner.availabilityDate} ${time}`
+
+		return this.datePipe.transform(fillDate, 'HH:mm:ss');
+	}
+
+	extractKeyWords()
+	{
+		const form = this.formGroup.value;
+		return this._keyWordContext = form.availabilityContext;
 	}
 }
