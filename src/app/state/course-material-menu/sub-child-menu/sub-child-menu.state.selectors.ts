@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:23:54 
- * Last modified  : 2022-01-19 11:14:49
+ * Last modified  : 2022-01-25 18:16:03
  */
 
 import {
@@ -91,7 +91,6 @@ export const selectSubChildMenuByChildId = (childArticleId: string) => createSel
 			 ]
 		 }
 	 })
-	 //console.log(parentMenu);
 	 return subChildMenus;
  }
 );

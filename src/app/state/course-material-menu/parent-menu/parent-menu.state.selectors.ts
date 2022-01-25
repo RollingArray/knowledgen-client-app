@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:23:54 
- * Last modified  : 2022-01-20 01:07:34
+ * Last modified  : 2022-01-25 18:15:55
  */
 
 import {
@@ -90,7 +90,6 @@ export const selectParentMenuByMaterialId = (courseMaterialIdId: string) => crea
 				]
 			}
 		})
-		//console.log(parentMenu);
 		return parentMenus;
 	}
 );
@@ -99,7 +98,6 @@ export const selectFirstParentMenuId = createSelector(
 	selectParentMenuState,
 	(entity) =>
 	{
-		console.log(entity);
 		return entity.ids[0];
 	}
 );

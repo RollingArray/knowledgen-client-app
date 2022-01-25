@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:23:54 
- * Last modified  : 2022-01-19 10:30:04
+ * Last modified  : 2022-01-25 18:13:39
  */
 
 import {
@@ -80,7 +80,6 @@ export const selectChildMenuByParentId = (parentArticleId: string) => createSele
 	//selectEntities,
 	(entity) =>
 	{
-		console.log(parentArticleId);
 		let childMenus: ChildMenuModel[] = [];
 		const childMenuIds = entity.ids;
 		childMenuIds.map(eachId =>
@@ -94,7 +93,6 @@ export const selectChildMenuByParentId = (parentArticleId: string) => createSele
 				]
 			}
 		})
-		//console.log(parentMenu);
 		return childMenus;
 	}
 );
