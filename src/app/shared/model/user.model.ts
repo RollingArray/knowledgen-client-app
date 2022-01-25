@@ -16,6 +16,7 @@ export interface UserModel extends BaseModel, SearchModel {
     userPassword?: string;
     userType?: UserTypeEnum;
     userEmail?: string;
+    userSkills?: string;
     inviteUserEmail ?: string;
     userSecurityAnswer1 ?: string;
     userSecurityAnswer2 ?: string;
