@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 10:16:05 
- * Last modified  : 2022-01-14 20:21:10
+ * Last modified  : 2022-01-25 21:06:08
  */
 
 
@@ -17,6 +17,7 @@ import { LocalStoreKey } from '../constant/local-store-key.constant';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
 import { EncryptionService } from './encryption.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
 	providedIn: 'root'
@@ -70,7 +71,8 @@ export class LocalStorageService
 	 * @param encryptionService 
 	 */
 	constructor(
-		private encryptionService: EncryptionService
+		private encryptionService: EncryptionService,
+		private cookieService:CookieService
 	) {
 
 	}
@@ -80,7 +82,7 @@ export class LocalStorageService
 	 * @returns  
 	 */
 	getToken() {
-		return localStorage.getItem(`${LocalStoreKey.LOGGED_IN_SESSION_ID}`);
+		return this.cookieService.get(`${LocalStoreKey.LOGGED_IN_SESSION_ID}`);
 	}
 
 	/**
@@ -89,7 +91,7 @@ export class LocalStorageService
 	 */
 	getActiveUserId()
 	{
-		return localStorage.getItem(`${LocalStoreKey.LOGGED_IN_USER_ID}`);
+		return this.cookieService.get(`${LocalStoreKey.LOGGED_IN_USER_ID}`);
 	}
 
 	/**
@@ -98,7 +100,7 @@ export class LocalStorageService
 	 */
 	getActiveUserFirstName(): Observable<string> {
 		this.currentActiveUserFirstName$ = new BehaviorSubject<string>(
-			localStorage.getItem(`${LocalStoreKey.LOGGED_IN_USER_FIRST_NAME}`)
+			this.cookieService.get(`${LocalStoreKey.LOGGED_IN_USER_FIRST_NAME}`)
 		);
 		return this.currentActiveUserFirstName$.asObservable();
 	}
@@ -109,7 +111,7 @@ export class LocalStorageService
 	 */
 	getActiveUserLastName(): Observable<string> {
 		this.currentActiveUserLastName$ = new BehaviorSubject<string>(
-			localStorage.getItem(`${LocalStoreKey.LOGGED_IN_USER_LAST_NAME}`)
+			this.cookieService.get(`${LocalStoreKey.LOGGED_IN_USER_LAST_NAME}`)
 		);
 		return this.currentActiveUserLastName$.asObservable();
 	}
@@ -120,7 +122,7 @@ export class LocalStorageService
 	 */
 	getActiveUserEmail(): Observable<string> {
 		this.currentActiveUserEmail$ = new BehaviorSubject<string>(
-			localStorage.getItem(`${LocalStoreKey.LOGGED_IN_USER_EMAIL}`)
+			this.cookieService.get(`${LocalStoreKey.LOGGED_IN_USER_EMAIL}`)
 		);
 		return this.currentActiveUserEmail$.asObservable();
 	}
@@ -131,8 +133,8 @@ export class LocalStorageService
 	 */
 	getActiveUserName(): Observable<string>
 	{
-		const firstName = localStorage.getItem(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME);
-		const lastName = localStorage.getItem(LocalStoreKey.LOGGED_IN_USER_LAST_NAME);
+		const firstName = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME);
+		const lastName = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_LAST_NAME);
 		const firstNameCapitalized = firstName.charAt(0).toUpperCase() + firstName.slice(1);
 		const lastNameCapitalized = lastName.charAt(0).toUpperCase() + lastName.slice(1);
 
@@ -148,12 +150,11 @@ export class LocalStorageService
 	 */
 	getActiveUser(): Observable<UserModel> {
 		this.currentActiveUser$ = new BehaviorSubject<UserModel>({
-			userId: localStorage.getItem(`${LocalStoreKey.LOGGED_IN_USER_ID}`),
-			userFirstName: localStorage.getItem(`${LocalStoreKey.LOGGED_IN_USER_FIRST_NAME}`),
-			userLastName: localStorage.getItem(`${LocalStoreKey.LOGGED_IN_USER_LAST_NAME}`),
-			userEmail: localStorage.getItem(`${LocalStoreKey.LOGGED_IN_USER_EMAIL}`),
-			userSecurityAnswer1: localStorage.getItem(`${LocalStoreKey.LOGGED_IN_USER_SECURITY_ANSWER_1}`),
-			userSecurityAnswer2: localStorage.getItem(`${LocalStoreKey.LOGGED_IN_USER_SECURITY_ANSWER_2}`),
+			userId: this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID),
+			userFirstName: this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME),
+			userLastName: this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_LAST_NAME),
+			userEmail: this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_EMAIL),
+			userSkills: this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_SKILLS)
 		});
 
 		return this.currentActiveUser$.asObservable();
@@ -167,12 +168,13 @@ export class LocalStorageService
 	setActiveUser(userModel: UserModel): Observable<boolean> {
 		const observable$ = new BehaviorSubject<boolean>(false);
 
-		localStorage.setItem(`${LocalStoreKey.LOGGED_IN_SESSION_ID}`, userModel.token);
-		localStorage.setItem(`${LocalStoreKey.LOGGED_IN_USER_ID}`, userModel.userId);
-		localStorage.setItem(`${LocalStoreKey.LOGGED_IN_USER_FIRST_NAME}`, userModel.userFirstName);
-		localStorage.setItem(`${LocalStoreKey.LOGGED_IN_USER_LAST_NAME}`, userModel.userLastName);
-		localStorage.setItem(`${LocalStoreKey.LOGGED_IN_USER_EMAIL}`, userModel.userEmail);
-
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_TYPE, userModel.userType);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_ID, userModel.userId);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME, userModel.userFirstName);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_LAST_NAME, userModel.userLastName);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_EMAIL, userModel.userEmail);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_SKILLS, userModel.userSkills);
+		
 		observable$.next(true);
 		return observable$.asObservable();
 	}
@@ -185,9 +187,10 @@ export class LocalStorageService
 	updateActiveUserDetails(userModel: UserModel): Observable<boolean> {
 		const observable$ = new BehaviorSubject<boolean>(false);
 
-		localStorage.setItem(`${LocalStoreKey.LOGGED_IN_USER_FIRST_NAME}`, userModel.userFirstName);
-		localStorage.setItem(`${LocalStoreKey.LOGGED_IN_USER_LAST_NAME}`, userModel.userLastName);
-		localStorage.setItem(`${LocalStoreKey.LOGGED_IN_USER_EMAIL}`, userModel.userEmail);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME, userModel.userFirstName);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_LAST_NAME, userModel.userLastName);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_EMAIL, userModel.userEmail);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_SKILLS, userModel.userSkills);
 
 		observable$.next(true);
 		return observable$.asObservable();
@@ -201,7 +204,7 @@ export class LocalStorageService
 	updateActiveUserToken(userModel: UserModel): Observable<boolean> {
 		const observable$ = new BehaviorSubject<boolean>(false);
 
-		localStorage.setItem(`${LocalStoreKey.LOGGED_IN_SESSION_ID}`, userModel.token);
+		this.cookieService.set(`${LocalStoreKey.LOGGED_IN_SESSION_ID}`, userModel.token);
 
 		observable$.next(true);
 		return observable$.asObservable();
@@ -215,9 +218,9 @@ export class LocalStorageService
 	setSignUpUserDetails(userModel: UserModel): Observable<boolean> {
 		const observable$ = new BehaviorSubject<boolean>(false);
 
-		localStorage.setItem(`${LocalStoreKey.LOGGED_IN_USER_FIRST_NAME}`, userModel.userFirstName);
-		localStorage.setItem(`${LocalStoreKey.LOGGED_IN_USER_LAST_NAME}`, userModel.userLastName);
-		localStorage.setItem(`${LocalStoreKey.LOGGED_IN_USER_EMAIL}`, userModel.userEmail);
+		this.cookieService.set(`${LocalStoreKey.LOGGED_IN_USER_FIRST_NAME}`, userModel.userFirstName);
+		this.cookieService.set(`${LocalStoreKey.LOGGED_IN_USER_LAST_NAME}`, userModel.userLastName);
+		this.cookieService.set(`${LocalStoreKey.LOGGED_IN_USER_EMAIL}`, userModel.userEmail);
 
 		observable$.next(true);
 		return observable$.asObservable();
@@ -243,7 +246,7 @@ export class LocalStorageService
 	endIntro(): Observable<boolean> {
 		const observable$ = new BehaviorSubject<boolean>(false);
 
-		localStorage.setItem(`${LocalStoreKey.SKIP_INTRO}`, 'done');
+		this.cookieService.set(`${LocalStoreKey.SKIP_INTRO}`, 'done');
 
 		observable$.next(true);
 		return observable$.asObservable();
@@ -255,7 +258,7 @@ export class LocalStorageService
 	 */
 	getIntroStatus(): Observable<string> {
 		this.introStatus$ = new BehaviorSubject<string>(
-			localStorage.getItem(`${LocalStoreKey.SKIP_INTRO}`)
+			this.cookieService.get(`${LocalStoreKey.SKIP_INTRO}`)
 		);
 		return this.introStatus$.asObservable();
 	}
