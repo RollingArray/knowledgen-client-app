@@ -4,8 +4,9 @@ import { CommonModule } from "@angular/common";
 import { SharedModule } from "src/app/shared/module/shared.module";
 import { IonicModule } from "@ionic/angular";
 import { UserProfileComponent } from './user-profile.component';
+import { I18nModule } from 'src/app/shared/module/i18n.module';
 @NgModule({
-  imports: [CommonModule, SharedModule, IonicModule, PageInfoTitleModule],
+  imports: [CommonModule, SharedModule, IonicModule, PageInfoTitleModule, I18nModule],
   declarations: [UserProfileComponent],
   exports: [UserProfileComponent],
   entryComponents: [UserProfileComponent]
