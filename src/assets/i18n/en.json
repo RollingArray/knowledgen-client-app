@@ -14,6 +14,8 @@
 		"ok": "Okay",
 		"discard": "Discard",
 		"cancel": "Cancel",
+		"confirm": "Confirm",
+		"close": "Close",
 		"add": "Add",
 		"addSubChildMenu": "Add Topic [Level 3]",
 		"addChildMenu": "Add Topic [Level 2]",
@@ -24,30 +26,66 @@
 		"addCourse": "Add New Course Material",
 		"editCourse": "Edit Course Material",
 		"deleteCourse": "Delete Course Material",
-		"courseMaterials": "Course Materials"
+		"courseMaterials": "Course Materials",
+		"availabilityPlanner": "Availability Planner",
+		"availableMentorSession": "Available Mentor Session",
+		"availabilitySchedule": "Schedule",
+		"addSchedule": "Add New Schedule",
+		"editSchedule": "Edit Schedule",
+		"deleteSchedule": "Delete Schedule",
+		"from": "From",
+		"to": "To",
+		"attending": "Attending",
+		"participants": "Participants",
+		"found": "Found",
+		"mentor": "Mentor",
+		"mentee": "Mentee",
+		"schedule": "Schedule",
+		"meet": "Online Meet Url",
+		"no": "No",
+		"profile":"Profile",
+		"interest":"Interest",
+		"education": "Education"
 	},
 	"pageSubTitle": {
 		"selectlanguage": "Your selected language will be applicable across the app.",
 		"addCourse": "Provide details of the material to create a new Course Material. Save the changes once you are satisfied with the content",
 		"editCourse": "Provide updated details of the material. Save the changes once you are satisfied with the content",
 		"deleteCourse": "Deleting course content",
-		"courseMaterials": "Course Materials means courses, documentation, educational materials, and other written information and any other materials."
+		"courseMaterials": "Course Materials means courses, documentation, educational materials, and other written information and any other materials.",
+		"availabilityPlannerMentor": "Plan you availability for a mentorship session by adding a day in a week when you can spend some time. We will find manatees who needs mentorship",
+		"availabilityPlannerMentee": "If you need help or guidance in a specific subject, plan you availability for a mentorship session by adding a day in a week when you can spend some time. We will find Mentor(s) who can guide you in those subjects",
+		"addSchedule": "Provide details of the Schedule to create a new Schedule. Save the changes once you are satisfied with the content",
+		"editSchedule": "Provide updated details of the Schedule. Save the changes once you are satisfied with the content",
+		"deleteSchedule": "Deleting Schedule",
+		"availableMentorSession": "Based on your requirement and availability, below session are found"
 	},
 	"formInfo":{
 		"courseName": "Provide a suitable name to the Course you want to create",
-		"courseDescription": "Provide a suitable description describing your course"
+		"courseDescription": "Provide a suitable description describing your course",
+		"availability": "Availability",
+		"from": "From",
+		"to": "To",
+		"for": "For",
+		"teacherAvailabilityContext": "What is the context of your mentorship session. Your session can be on any topic. For ex, any school subject, mentorship on goal session etc",
+		"studentAvailabilityContext": "What is the area you need guidance. You can add topics like, any school subject, mentorship on goal session etc",
+		"onlineMeetingUrl": "Provide a online sessions url. You can add Zoom / Google Hangouts / Skype / Slack / Facebook Live / YouTube Live / MS Teams or any other meeting url"
 	},
 	"noData": {
 		"noNWAData": "No Network Activities Found",
 		"noCourseMaterialData": "You have not yet created any Course Materiels, add a new one !!",
+		"noAvailabilityPlannerData": "No schedules found, plan a new schedule !!",
 		"noTopic" : "No Topic has been found. Create your first topic !!"
 	},
 	"loading": {
 		"wait": "Loading ... Please wait",
 		"holdTight": "Hold tight, we are looking for your data",
 		"newCourseMaterial" : "Adding New Course Material ... Please wait" ,
-		"editCourseMaterial" : "Updating New Course Material ... Please wait" ,
-		"deleteCourseMaterial" : "Deleting New Course Material ... Please wait" 
+		"editCourseMaterial" : "Updating Course Material ... Please wait" ,
+		"deleteCourseMaterial" : "Deleting Course Material ... Please wait",
+		"newAvailabilityPlanner" : "Adding New Schedule ... Please wait" ,
+		"editAvailabilityPlanner" : "Updating Schedule ... Please wait" ,
+		"deleteAvailabilityPlanner" : "Deleting Schedule ... Please wait" 
 	},
 	"errorMessage":{
 		"notAllowed": "Review Your Action !!",
@@ -60,9 +98,13 @@
 	},
 	"response":{
 		"newCourseMaterial" : "Your Course Material has been saved, you can update any time!!",
-		"editCourseMaterial" : "Your Course Material has been updated, you can update any time!!",
+		"editCourseMaterial" : "Your Course Material has been updated successfully!!",
 		"deleteCourseMaterial" : "Your Course Material has been deleted successfully!!",
-		"feedbackSubmitted": "Thank you for taking time to share your feedback!!"
+		"feedbackSubmitted": "Thank you for taking time to share your feedback!!",
+		"teacherNewAvailabilityPlanner" : "Your Schedule has been saved, you can update any time!!. We will look for any Mentee who would like to join your session",
+		"studentNewAvailabilityPlanner" : "Your Schedule has been saved, you can update any time!!. We will look for any Mentor who would like help you in you mentorship needs",
+		"editAvailabilityPlanner" : "Your Schedule has been updated successfully!!",
+		"deleteAvailabilityPlanner" : "Your Schedule has been deleted successfully!!"
 	},
 	"placeholder":{
 		"searchName" : "search ...",
