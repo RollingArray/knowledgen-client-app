@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-01-20 00:48:40
+ * Last modified  : 2022-01-25 18:10:19
  */
 
 
@@ -181,7 +181,6 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 								 await this.rootStateFacade.startLoading(data['loading.wait']);
 												 
 								 this.courseMaterialMenuStateFacade.addNewChildMenu(childMenuModel);
-								 console.log(childMenuModel);
 							 }
 						 }
 					 ]
