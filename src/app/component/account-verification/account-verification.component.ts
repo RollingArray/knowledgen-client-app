@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-10-31 14:25:52 
- * Last modified  : 2021-12-26 19:41:56
+ * Last modified  : 2022-01-25 20:16:56
  */
 
 
@@ -27,6 +27,8 @@ import { PlatformHelper } from 'src/app/shared/helper/platform.helper';
 import { NavParams } from '@ionic/angular';
 import { AnalyticsService } from 'src/app/shared/service/analytics.service';
 import { EventPageEnum } from 'src/app/shared/enum/event-page.enum';
+import { CookieService } from 'ngx-cookie-service';
+import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
 
 
 @Component({
@@ -99,7 +101,8 @@ export class AccountVerificationComponent extends BaseFormComponent
 		private localStorageService: LocalStorageService,
 		private platformHelper: PlatformHelper,
 		public navParams: NavParams,
-		private analyticsService: AnalyticsService
+		private analyticsService: AnalyticsService,
+		private cookieService: CookieService
 	)
 	{
 		super(injector);
@@ -196,13 +199,15 @@ export class AccountVerificationComponent extends BaseFormComponent
 						if (baseModel.success)
 						{
 							const userModel: UserModel = {
+								userType: baseModel.data.userType,
 								userId: baseModel.data.userId,
 								token: baseModel.token,
 								userEmail: baseModel.data.userEmail,
 								userFirstName: baseModel.data.userFirstName,
-								userLastName: baseModel.data.userLastName
+								userLastName: baseModel.data.userLastName,
+								userSkills: baseModel.data.userSkills,
 							};
-		
+
 							await this.localStorageService
 								.setActiveUser(userModel)
 								.pipe(takeUntil(this.unsubscribe))
