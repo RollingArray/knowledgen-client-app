@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-01-16 07:37:58
+ * Last modified  : 2022-01-23 15:41:37
  */
 
 
@@ -624,12 +624,16 @@ export class StringKey {
 	public static readonly ICON_TEACHER: string = StringKey.ICON_BASE_PATH + "teacher.svg";
 	public static readonly ICON_LANGUAGE: string = StringKey.ICON_BASE_PATH + "language.svg";
 	public static readonly ICON_NO_DATA: string = StringKey.ICON_BASE_PATH + "no-data.svg";
-	
+	public static readonly ICON_HELP_SUPPORT: string = StringKey.ICON_BASE_PATH + "help-support.svg";
+	public static readonly ICON_MENTOR: string = StringKey.ICON_BASE_PATH + "mentor.svg";
+	public static readonly ICON_TIME: string = StringKey.ICON_BASE_PATH + "time.svg";
+	public static readonly ICON_ONLINE_VIDEO: string = StringKey.ICON_BASE_PATH + "online-video.svg";
+	public static readonly ICON_CHECK: string = StringKey.ICON_BASE_PATH + "check.svg";
 	
 	public static readonly IMAGE_BASE_PATH: string = "assets/images/";
 	public static readonly IMAGE_ICON: string = StringKey.IMAGE_BASE_PATH + "app_icon.svg";
 	public static readonly IMAGE_AVATAR: string = StringKey.IMAGE_BASE_PATH + "app_avatar.svg";
-	public static readonly IMAGE_ICON_SMALL: string = StringKey.IMAGE_BASE_PATH + "app_icon-small.svg";
+	public static readonly IMAGE_ICON_SMALL: string = StringKey.IMAGE_BASE_PATH + "app_icon.svg";
 
 	public static readonly IMAGE_PROJECT_DONE: string = StringKey.IMAGE_BASE_PATH + "project_done.svg";
 	public static readonly IMAGE_GOAL_DONE: string = StringKey.IMAGE_BASE_PATH + "goal_done.svg";
