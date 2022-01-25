@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-15 21:34:14 
- * Last modified  : 2022-01-19 21:03:59
+ * Last modified  : 2022-01-25 21:03:14
  */
 
 import { environment } from "../../../environments/environment";
@@ -24,7 +24,7 @@ export class ApiUrls {
 	public static readonly USER_ACTIVATE_CODE_RESEND: string = ApiUrls.API_BASE_PATH + "/user/activate/code/resend";
 	
 	public static readonly USER_DETAILS: string = ApiUrls.API_BASE_PATH + "/user/details";
-	public static readonly USER_PROFILE_UPDATE: string = ApiUrls.API_BASE_PATH + "/user/profile/update";
+	public static readonly USER_PROFILE_UPDATE: string = ApiUrls.API_BASE_PATH + "/user/edit";
 
 	public static readonly COURSE_MATERIAL: string = ApiUrls.API_BASE_PATH + "/course/material/all";
 	public static readonly COURSE_MATERIAL_ADD: string = ApiUrls.API_BASE_PATH + "/course/material/add";
@@ -37,4 +37,14 @@ export class ApiUrls {
 	public static readonly COURSE_MATERIAL_CHILD_MENU_ADD: string = ApiUrls.API_BASE_PATH + "/course/material/menu/child/add";
 	public static readonly COURSE_MATERIAL_SUB_CHILD_MENU_ADD: string = ApiUrls.API_BASE_PATH + "/course/material/menu/child/sub/add";
 
+	public static readonly TEACHER_AVAILABILITY_PLANNER: string = ApiUrls.API_BASE_PATH + "/teacher/availability/planner/all";
+	public static readonly STUDENT_AVAILABILITY_PLANNER: string = ApiUrls.API_BASE_PATH + "/student/availability/planner/all";
+	
+	public static readonly TEACHER_AVAILABILITY_PLANNER_ADD: string = ApiUrls.API_BASE_PATH + "/teacher/availability/planner/add";
+	public static readonly TEACHER_AVAILABILITY_PLANNER_EDIT: string = ApiUrls.API_BASE_PATH + "/teacher/availability/planner/edit";
+	public static readonly TEACHER_AVAILABILITY_PLANNER_DELETE: string = ApiUrls.API_BASE_PATH + "/teacher/availability/planner/delete";
+
+	public static readonly STUDENT_AVAILABILITY_PLANNER_ADD: string = ApiUrls.API_BASE_PATH + "/student/availability/planner/add";
+	public static readonly STUDENT_AVAILABILITY_PLANNER_EDIT: string = ApiUrls.API_BASE_PATH + "/student/availability/planner/edit";
+	public static readonly STUDENT_AVAILABILITY_PLANNER_DELETE: string = ApiUrls.API_BASE_PATH + "/student/availability/planner/delete";
 }
