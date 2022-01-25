@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2022-01-16 07:33:42
+ * Last modified  : 2022-01-20 10:27:15
  */
 
 
@@ -82,7 +82,7 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	/**
 	 * Load route of menu page
 	 */
-	private _loadRoute: boolean = false;
+	private _loadRoute: boolean = true;
 	
 	/**
 	 * Gets logged in user

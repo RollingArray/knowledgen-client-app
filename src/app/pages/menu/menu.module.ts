@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2021-11-23 20:12:29
+ * Last modified  : 2022-01-20 12:47:35
  */
 
 import { UserProfileModule } from './../../component/user-profile/user-profile.component.module';
@@ -21,6 +21,7 @@ import { IonicModule } from "@ionic/angular";
 import { MenuPage } from "./menu.page";
 import { NoDataModule } from 'src/app/component/no-data/no-data.component.module';
 import { LearnMoreModule } from 'src/app/component/learn-more/learn-more.module';
+import { I18nModule } from 'src/app/shared/module/i18n.module';
 
 const routes: Routes = [
 	{
@@ -31,8 +32,13 @@ const routes: Routes = [
 				path: 'course/material',
 				loadChildren: () => import('../course-material/course-material.module').then(m => m.CourseMaterialPageModule)
 			},
+			{
+				path: 'availability/planner',
+				loadChildren: () => import('../availability-planner/availability-planner.module').then(m => m.AvailabilityPlannerPageModule)
+			},
 		]
-	}
+	},
+	
 ];
 
 @NgModule({
@@ -43,6 +49,7 @@ const routes: Routes = [
 		UserProfileModule,
 		NoDataModule,
 		LearnMoreModule,
+		I18nModule,
 		RouterModule.forChild(routes)
 	],
 	declarations: [MenuPage]

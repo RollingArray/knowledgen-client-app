@@ -8,15 +8,15 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2021-12-26 17:24:28
+ * Last modified  : 2022-01-20 12:47:56
  */
  -->
 <ion-app>
     <ion-split-pane contentId="content">
-        <ion-menu contentId="content" type="overlay" color="pitch-dark">
+        <ion-menu contentId="content" type="overlay" color="secondary">
             <ion-header lines="none" class="ion-no-border">
                 <ion-menu-toggle auto-hide="false">
-                    <ion-toolbar color="primary-gradient">
+                    <ion-toolbar color="secondary">
                         <ion-card
                             class="cursor-pointer margin-top-50-px"
                             *ngIf="loadRoute"
@@ -32,10 +32,10 @@
                                 </ion-label>
                             </ion-item>
                         </ion-card>
-                        <ion-grid color="pitch-dark">
-                            <ion-row color="pitch-dark">
-                                <ion-col color="pitch-dark">
-                                    <!-- <img height="100" [src]="avatar" /> -->
+                        <ion-grid color="secondary">
+                            <ion-row color="secondary">
+                                <ion-col color="secondary">
+                                    <img height="100" [src]="avatar" />
                                 </ion-col>
                             </ion-row>
                             <ion-row>
@@ -48,9 +48,9 @@
                 </ion-menu-toggle>
             </ion-header>
 
-            <ion-content color="primary-gradient">
+            <ion-content color="secondary">
                 <ion-menu-toggle auto-hide="false" *ngIf="loadRoute">
-                    <ion-grid color="pitch-dark">
+                    <ion-grid color="secondary">
                         <ion-row *ngIf="loadRoute">
                             <ion-col>
                                 <ion-card
@@ -99,23 +99,6 @@
                                 <ion-card
                                     class="padding-10-px cursor-pointer"
                                     color="semi-dark-gradient"
-                                    (click)="learnMore()"
-                                >
-                                    <ion-icon
-                                        size="large"
-                                        [src]="stringKey.ICON_LEARN"
-                                    ></ion-icon>
-                                    
-                                    <ion-label
-                                        class="segment"
-                                        >{{stringKey.LEARN}}
-                                    </ion-label>
-                                </ion-card>
-                            </ion-col>
-                            <ion-col>
-                                <ion-card
-                                    class="padding-10-px cursor-pointer"
-                                    color="semi-dark-gradient"
                                     (click)="presentLogoutAlertConfirm()"
                                 >
                                     <ion-icon
@@ -138,23 +121,13 @@
                             </ion-col>
                         </ion-row>
                     </ion-grid>
-                    <ion-card class="cursor-pointer" (click)="gotoMyProjects()">
-                        <ion-item color="primary" lines="none">
-                            <ion-icon
-                                slot="start"
-                                name="arrow-back-outline"
-                            ></ion-icon>
-                            <ion-label> {{stringKey.MY_PROJECT}} </ion-label>
-                        </ion-item>
-                    </ion-card>
-
                     <ion-card
 
 						class="cursor-pointer"
                         *ngFor="let p of pages"
                         color="primary-gradient"
                     >
-                        <ion-item color="pitch-dark" lines="none">
+                        <ion-item color="secondary" lines="none">
                             <ion-icon
                                 [src]="stringKey.ICON_MENU"
                                 slot="start"
@@ -177,7 +150,7 @@
                                         slot="start"
                                         [src]="eachSubMenu.icon"
                                     ></ion-icon>
-                                    {{ eachSubMenu.title }}
+                                    {{ eachSubMenu.title | translate }}
 									<ion-icon
 											*ngIf="!eachSubMenu.allowMenuAccess"
 											color="warning"
