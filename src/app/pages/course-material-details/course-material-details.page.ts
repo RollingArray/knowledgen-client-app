@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-01-20 01:28:23
+ * Last modified  : 2022-01-25 18:12:39
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -117,7 +117,6 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 			}
 			else
 			{
-				console.log(articleId);
 				this.router.navigate([
 					'go/course/material',
 					courseMaterialId,
