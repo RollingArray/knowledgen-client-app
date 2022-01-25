@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 10:15:11 
- * Last modified  : 2022-01-14 19:00:31
+ * Last modified  : 2022-01-25 18:13:20
  */
 
 import { HttpClient } from "@angular/common/http";
@@ -104,7 +104,6 @@ export abstract class BaseService<T extends BaseModel> {
 		const apiData = this.httpClient.post<T>(url, data).pipe(
 			map((response: BaseModel) =>
 			{
-				console.log(response);
 				//if response has success true
 				if (response.success)
 				{
