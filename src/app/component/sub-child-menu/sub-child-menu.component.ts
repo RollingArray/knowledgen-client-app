@@ -7,17 +7,21 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-01-25 18:11:00
+ * Last modified  : 2022-01-26 15:15:44
  */
 
 import { Component, OnInit, Input, Injector } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
+import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { BaseViewComponent } from "src/app/component/base/base-view.component";
+import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
 import { SubChildMenuModel } from "src/app/shared/model/sub-child-menu.model";
 import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
+import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
 
 @Component({
@@ -70,6 +74,8 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 	 */
 	totalNumberOfSubChildMenu$!: Observable<number>;
 
+	courseMaterial$!: Observable<CourseMaterialModel>;
+
 	/**
 	 * Determines whether data has
 	 */
@@ -82,6 +88,18 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 	 * -------------------------------------------------|
 	 */
 
+	 get isMaterialOwner()
+	 {
+		 let isMaterialOwner = false;
+		 this.courseMaterial$.subscribe(data =>
+		 {
+			 const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
+			 isMaterialOwner = loggedInUser === data.userId ? true : false
+		 });
+ 
+		 return isMaterialOwner;
+	 }
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -99,7 +117,9 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 		injector: Injector,
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private translateService: TranslateService,
-		private rootStateFacade: RootStateFacade
+		private rootStateFacade: RootStateFacade,
+		private cookieService: CookieService,
+		private courseMaterialStateFacade: CourseMaterialStateFacade,
 	)
 	{
 		super(injector);
@@ -112,6 +132,7 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 	{
 		this.subChildMenu$ = this.courseMaterialMenuStateFacade.subChildMenuByChildId$(this.childArticleId);
 		this.totalNumberOfSubChildMenu$ = this.courseMaterialMenuStateFacade.totalNumberOfSubChildMenu$;
+		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this.courseMaterialId);
 	}
 
 	/**
@@ -187,12 +208,13 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 
 	public navigateToCourseMaterialArticle(articleId: string)
 	{
-		this.router.navigate([
-			'go/course/material',
-			this.courseMaterialId,
-			'details',
-			'article',
-			articleId
-		]);
+		this.cookieService.set('_selArt', articleId);
+		// this.router.navigate([
+		// 	'go/course/material',
+		// 	this.courseMaterialId,
+		// 	'details',
+		// 	'article',
+		// 	articleId
+		// ]);
 	}
 }
