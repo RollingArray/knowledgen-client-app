@@ -7,13 +7,13 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-01-25 18:10:51
+ * Last modified  : 2022-01-26 16:12:11
  */
 
 
 import { takeUntil } from 'rxjs/operators';
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
-import { Component, OnInit, ViewChild, Injector } from "@angular/core";
+import { Component, OnInit, ViewChild, Injector, Output, EventEmitter } from "@angular/core";
 import { IonSlides, ModalController } from "@ionic/angular";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { SlideModel } from "src/app/shared/model/slide.model";
@@ -26,6 +26,9 @@ import { CourseMaterialModel } from 'src/app/shared/model/course-material.model'
 import { ParentMenuModel } from 'src/app/shared/model/parent-menu.model';
 import { CourseMaterialMenuStateFacade } from 'src/app/state/course-material-menu/course-material-menu.state.facade';
 import { RootStateFacade } from 'src/app/state/root/root.state.facade';
+import { CookieService } from 'ngx-cookie-service';
+import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
+import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
 
 @Component({
 	selector: "parent-menu",
@@ -41,6 +44,8 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 * -------------------------------------------------|
 	 */
 	readonly operationsEnum = OperationsEnum;
+
+	@Output() emitSelectedArticle = new EventEmitter<string>();
 
 	/**
 	 * -------------------------------------------------|
@@ -60,6 +65,10 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 */
 	parentMenuMenu$!: Observable<ParentMenuModel[]>;
 
+	courseMaterialOwner$!: Observable<string>;
+
+	courseMaterial$!: Observable<CourseMaterialModel>;
+
 	private _courseMaterialId: string;
 
 	/**
@@ -78,6 +87,20 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	{
 		return this._courseMaterialId;
 	}
+
+	get isMaterialOwner()
+	{
+		let isMaterialOwner = false;
+		this.courseMaterial$.subscribe(data =>
+		{
+			const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
+			isMaterialOwner = loggedInUser === data.userId ? true : false
+		});
+
+		return isMaterialOwner;
+	}
+
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -94,8 +117,10 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	constructor(
 		injector: Injector,
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
+		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private rootStateFacade: RootStateFacade,
 		private translateService: TranslateService,
+		private cookieService: CookieService
 	)
 	{
 		super(injector);
@@ -115,16 +140,16 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 			});
 		this.loadData();
 
-		this.parentMenuMenu$.subscribe(data =>
-			{
-				this.router.navigate([
-					'go/course/material',
-					this.courseMaterialId,
-					'details',
-					'article',
-					data[0].parentArticleId
-				]);
-			})
+		// this.parentMenuMenu$.subscribe(data =>
+		// 	{
+		// 		this.router.navigate([
+		// 			'go/course/material',
+		// 			this.courseMaterialId,
+		// 			'details',
+		// 			'article',
+		// 			data[0].parentArticleId
+		// 		]);
+		// 	})
 	}
 
 	/**
@@ -167,11 +192,12 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 */
 	public loadData()
 	{
+		console.log("a");
 		this._courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
 		this.getCourseMaterialMenu();
 		this.parentMenuMenu$ = this.courseMaterialMenuStateFacade.menuByCourseMaterialId$(this._courseMaterialId);
-		
-		
+		this.courseMaterialOwner$ = this.courseMaterialStateFacade.courseMaterialOwner$(this._courseMaterialId);
+		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this._courseMaterialId);
 	}
 
 	async addNewParentMenu()
@@ -232,12 +258,14 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 
 	public navigateToCourseMaterialArticle(articleId: string)
 	{
-		this.router.navigate([
-			'go/course/material',
-			this.courseMaterialId,
-			'details',
-			'article',
-			articleId
-		]);
+		this.emitSelectedArticle.emit(articleId);
+		this.cookieService.set('_selArt', articleId);
+		// this.router.navigate([
+		// 	'go/course/material',
+		// 	this.courseMaterialId,
+		// 	'details',
+		// 	'article',
+		// 	articleId
+		// ]);
 	}
 }

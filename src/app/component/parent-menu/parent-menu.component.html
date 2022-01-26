@@ -8,7 +8,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-01-20 00:49:07
+ * Last modified  : 2022-01-26 16:12:24
  */
  -->
 <ion-card class="cursor-pointer" *ngFor="let eachMenu of (parentMenuMenu$ | async)" >
@@ -19,9 +19,12 @@
 		</ion-label>
 	</ion-item>
 	<!-- ss -->
-	<child-menu [parentArticleId]="eachMenu.parentArticleId" [courseMaterialId]="courseMaterialId"></child-menu>
+	<child-menu [parentArticleId]="eachMenu.parentArticleId" [courseMaterialId]="courseMaterialId" (emitChildSelectedArticle)="navigateToCourseMaterialArticle($event)"></child-menu>
 </ion-card>
-<ion-button (click)="addNewParentMenu()" expand="block">
-	<ion-icon [src]="stringKey.ICON_ADD" slot="start"></ion-icon>
-	{{'button.addMenu' | translate}}
-</ion-button>
+
+<div>
+	<ion-button (click)="addNewParentMenu()" expand="block" *ngIf="isMaterialOwner">
+		<ion-icon [src]="stringKey.ICON_ADD" slot="start"></ion-icon>
+		{{'button.addMenu' | translate}}
+	</ion-button>
+</div>
