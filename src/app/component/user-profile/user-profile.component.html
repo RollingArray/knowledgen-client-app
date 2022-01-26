@@ -1,7 +1,7 @@
 <ion-header [appScrollTracker]="scrollArea">
 	<ion-toolbar color="primary">
 		<ion-title>
-			{{ stringKey.MY_PROFILE }}
+			{{ 'pageTitle.myProfile' | translate }}
 		</ion-title>
 		<ion-buttons slot="end">
 			<ion-button mode="ios" fill="outline" color="dark" (click)="closeModal()">{{ stringKey.CLOSE }}</ion-button>
@@ -11,7 +11,7 @@
 
 <ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
 	<!-- page title -->
-	<app-page-info-title [title]="stringKey.MY_PROFILE" [info]="stringKey.MY_PROFILE_INFO"></app-page-info-title>
+	<app-page-info-title [title]="'pageTitle.myProfile' | translate" [info]="'pageSubTitle.myProfile' | translate"></app-page-info-title>
 
 	<!-- fab -->
 	<ion-fab *ngIf="!ifFormActive" slot="fixed" vertical="bottom" horizontal="end" color="tertiary">
@@ -65,14 +65,14 @@
 								<ion-item color="secondary" lines="none">
 									<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
 									<p>
-										{{ stringKey.FORM_INFO_PROFILE_PERSONAL_DETAILS }}
+										{{ 'formInfo.personalDetails' | translate }}
 									</p>
 								</ion-item>
 								<!-- first name -->
 								<ion-card lines="none" color="light">
 									<ion-item lines="none" color="light">
 										<ion-label position="floating">{{
-											stringKey.FIRST_NAME
+											'formInfo.firstName' | translate
 											}}</ion-label>
 										<ion-input autocomplete="off" formControlName="userFirstName" type="text">
 										</ion-input>
@@ -81,7 +81,7 @@
 										<ion-item color="warning">
 											<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING">
 											</ion-icon>
-											{{ stringKey.FORM_VALIDATION_USER_NAME }}
+											{{ 'validation.required' | translate }}
 										</ion-item>
 									</ion-card>
 								</ion-card>
@@ -90,7 +90,7 @@
 								<ion-card lines="none" color="light">
 									<ion-item lines="none" color="light">
 										<ion-label position="floating">{{
-											stringKey.LAST_NAME
+											'formInfo.lastName' | translate
 											}}</ion-label>
 										<ion-input autocomplete="off" formControlName="userLastName" type="text">
 										</ion-input>
@@ -99,7 +99,7 @@
 										<ion-item color="warning">
 											<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING">
 											</ion-icon>
-											{{ stringKey.FORM_VALIDATION_USER_NAME }}
+											{{ 'validation.required' | translate }}
 										</ion-item>
 									</ion-card>
 								</ion-card>
@@ -109,14 +109,14 @@
 								<ion-item color="secondary" lines="none">
 									<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
 									<p>
-										{{ stringKey.FORM_INFO_PROFILE_CREDENTIAL_DETAILS }}
+										{{ 'formInfo.yourCred' | translate }}
 									</p>
 								</ion-item>
 								
 								<!-- email -->
 								<ion-card lines="none" color="light">
 									<ion-item lines="none" color="light">
-										<ion-label position="floating">{{ stringKey.EMAIL }}</ion-label>
+										<ion-label position="floating">{{ 'formInfo.email' | translate }}</ion-label>
 										<ion-input autocomplete="off" formControlName="userEmail" type="text">
 										</ion-input>
 									</ion-item>
@@ -124,7 +124,7 @@
 										<ion-item color="warning">
 											<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING">
 											</ion-icon>
-											{{ stringKey.FORM_VALIDATION_EMAIL }}
+											{{ 'validation.required' | translate }}
 										</ion-item>
 									</ion-card>
 								</ion-card>
@@ -142,15 +142,13 @@
 								<ion-item color="secondary" lines="none">
 									<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
 									<p>
-										{{ stringKey.FORM_INFO_PROFILE_PERSONAL_DETAILS }}
+										{{ 'formInfo.intarest' | translate }}
 									</p>
 								</ion-item>
 								<!-- first name -->
 								<ion-card lines="none" color="light">
 									<ion-item lines="none" color="light">
-										<ion-label position="floating">{{
-											stringKey.FIRST_NAME
-											}}</ion-label>
+										<ion-label position="floating">{{ 'formInfo.subjects' | translate }}</ion-label>
 										<ion-textarea rows="6" autocomplete="off" formControlName="userSkills" type="text">
 										</ion-textarea>
 									</ion-item>
