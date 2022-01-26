@@ -10,7 +10,8 @@ export interface RouteChildrenModel
 {
 	title: string;
 	root?: boolean;
-	url: string[];
+	url?: string[];
+	action?: string;
 	icon: string;
 	allowAccess?: UserTypeEnum[];
 	allowMenuAccess?: boolean;
