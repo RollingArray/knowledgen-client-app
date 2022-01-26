@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2022-01-20 10:27:15
+ * Last modified  : 2022-01-26 23:13:14
  */
 
 
@@ -31,6 +31,9 @@ import { LearnMoreComponent } from 'src/app/component/learn-more/learn-more.comp
 import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
 import { UpdateCheckerService } from 'src/app/shared/service/update-checker.service';
 import { environment } from 'src/environments/environment';
+import { CookieService } from 'ngx-cookie-service';
+import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
+import { SelectLanguageComponent } from 'src/app/component/select-language/select-language.component';
 
 @Component({
 	selector: "app-menu",
@@ -156,6 +159,21 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 		return this._loadRoute;
 	}
 
+	get userType()
+	 {
+		 return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
+	 }
+	
+	 get isUserTypeTeacher()
+	 {
+		 return this.userType === UserTypeEnum.Teacher ? true : false;
+	 }
+ 
+	 get isUserTypeStudent()
+	 {
+		 return this.userType === UserTypeEnum.Student ? true : false;
+	 }
+
 	/**
 	 * App environment of learn more component
 	 */
@@ -187,7 +205,8 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 		private loadingService: LoadingService,
 		private dataCommunicationService: DataCommunicationService,
 		private userService: UserService,
-		private updateCheckerService: UpdateCheckerService
+		private updateCheckerService: UpdateCheckerService,
+		private cookieService: CookieService
 	)
 	{
 		super(injector);
@@ -408,6 +427,19 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 		this.router.navigate(constructUrl);
 	}
 
+	async gotoAction(routeChildrenModel: RouteChildrenModel)
+	{
+
+		switch (routeChildrenModel.action) {
+			case 'changeLanguage':
+				this.changeLanguage();
+				break;
+		
+			default:
+				break;
+		}
+	}
+
 	/**
 	 * Learns more
 	 * @returns  
@@ -424,6 +456,24 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 		 modal.onDidDismiss().then(data =>
 		 {
 			 //
+		 });
+ 
+		 return await modal.present();
+	 }
+	
+	 async changeLanguage()
+	 {
+		 const modal = await this.modalController.create({
+			 component: SelectLanguageComponent,
+			 componentProps: {
+				 //
+			 },
+		 });
+ 
+		 modal.onDidDismiss().then((data) => {
+			 //if app, initiate push notificaiton
+			 window.location.reload();
+			 
 		 });
  
 		 return await modal.present();
