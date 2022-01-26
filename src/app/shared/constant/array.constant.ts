@@ -6,12 +6,13 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:15:29 
- * Last modified  : 2022-01-21 10:04:25
+ * Last modified  : 2022-01-26 19:57:40
  */
 
 
 import { StringKey } from 'src/app/shared/constant/string.constant';
 import { UserTypeEnum } from '../enum/user-type.enum';
+import { LanguageModel } from '../model/language.model';
 import { RouteModel } from '../model/route.model';
 import { SlideModel } from '../model/slide.model';
 import { ApiUrls } from './api-urls.constant';
@@ -22,7 +23,7 @@ export class ArrayKey {
 	 */
 	public static readonly APP_PRIMARY_ROUTE_PAGES: RouteModel[] = [
 		{
-			title: StringKey.MY_SPACE,
+			title: 'pageTitle.mySpace',
 			children: [
 				{
 					title: 'pageTitle.courseMaterials',
@@ -38,8 +39,29 @@ export class ArrayKey {
 				},
 			]
 		},
+		{
+			title: 'pageTitle.settings',
+			children: [
+				{
+					title: 'pageTitle.selectlanguage',
+					action: 'changeLanguage',
+					icon: StringKey.ICON_LANGUAGE,
+					allowAccess: [UserTypeEnum.Student]
+				},
+			]
+		},
 	];
 
+	public static readonly LANGUAGES: LanguageModel[] = [
+		{
+			code: 'en',
+			title: 'English'
+		},
+		{
+			code: 'ben',
+			title: 'Bengali'
+		}
+	];
 
 	/**
 	 * Intro slide array of array key
