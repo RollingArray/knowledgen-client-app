@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-12-26 11:14:11 
- * Last modified  : 2022-01-14 20:22:02
+ * Last modified  : 2022-01-26 19:44:39
  */
 
 
@@ -78,7 +78,7 @@ export class FrontPage extends BaseViewComponent implements OnInit, OnDestroy {
 				.subscribe(
 					(data: string) => {
 						if (data !== 'done') {
-							this.loadIntro();
+							//this.loadIntro();
 						}
 					}
 				);
