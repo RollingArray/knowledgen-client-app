@@ -7,13 +7,13 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-01-25 18:10:19
+ * Last modified  : 2022-01-26 16:11:17
  */
 
 
 import { takeUntil } from 'rxjs/operators';
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
-import { Component, OnInit, ViewChild, Injector, Input } from "@angular/core";
+import { Component, OnInit, ViewChild, Injector, Input, EventEmitter, Output } from "@angular/core";
 import { IonSlides, ModalController } from "@ionic/angular";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { SlideModel } from "src/app/shared/model/slide.model";
@@ -26,6 +26,9 @@ import { CourseMaterialModel } from 'src/app/shared/model/course-material.model'
 import { CourseMaterialMenuStateFacade } from 'src/app/state/course-material-menu/course-material-menu.state.facade';
 import { RootStateFacade } from 'src/app/state/root/root.state.facade';
 import { ChildMenuModel } from 'src/app/shared/model/child-menu.model';
+import { CookieService } from 'ngx-cookie-service';
+import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
+import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
 
 @Component({
 	selector: "child-menu",
@@ -53,7 +56,10 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 	 /**
 	  * Input  of child menu component
 	  */
-	  @Input() courseMaterialId;
+	@Input() courseMaterialId;
+	
+	@Output() emitChildSelectedArticle = new EventEmitter<string>();
+	
 	 /**
 	  * -------------------------------------------------|
 	  * @description										|
@@ -75,7 +81,9 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 	 /**
 	  * Total number of sub child menu$ of sub child menu component
 	  */
-	 totalNumberOfChildMenu$!: Observable<number>;
+	totalNumberOfChildMenu$!: Observable<number>;
+	
+	courseMaterial$!: Observable<CourseMaterialModel>;
  
 	 /**
 	  * Determines whether data has
@@ -89,6 +97,18 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 	  * -------------------------------------------------|
 	  */
  
+	  get isMaterialOwner()
+	  {
+		  let isMaterialOwner = false;
+		  this.courseMaterial$.subscribe(data =>
+		  {
+			  const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
+			  isMaterialOwner = loggedInUser === data.userId ? true : false
+		  });
+  
+		  return isMaterialOwner;
+	  }
+	
 	 /**
 	  * -------------------------------------------------|
 	  * @description										|
@@ -105,8 +125,10 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 	 constructor(
 		 injector: Injector,
 		 private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
+		 private courseMaterialStateFacade: CourseMaterialStateFacade,
 		 private translateService: TranslateService,
-		 private rootStateFacade: RootStateFacade
+		 private rootStateFacade: RootStateFacade,
+		 private cookieService: CookieService
 	 )
 	 {
 		 super(injector);
@@ -118,6 +140,7 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 	 async ngOnInit()
 	 {
 		 this.childMenu$ = this.courseMaterialMenuStateFacade.childMenuByParentMenuId$(this.parentArticleId);
+		 this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this.courseMaterialId);
 	 }
  
 	 /**
@@ -193,12 +216,14 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 	
 	 public navigateToCourseMaterialArticle(articleId: string)
 	 {
-		 this.router.navigate([
-			 'go/course/material',
-			 this.courseMaterialId,
-			 'details',
-			 'article',
-			 articleId
-		 ]);
+		 this.cookieService.set('_selArt', articleId);
+		 this.emitChildSelectedArticle.emit(articleId);
+		//  this.router.navigate([
+		// 	 'go/course/material',
+		// 	 this.courseMaterialId,
+		// 	 'details',
+		// 	 'article',
+		// 	 articleId
+		//  ]);
 	 }
 }

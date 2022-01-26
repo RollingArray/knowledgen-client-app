@@ -8,7 +8,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-01-20 00:49:20
+ * Last modified  : 2022-01-26 15:19:06
  */
  -->
 <ion-card class="cursor-pointer" *ngFor="let eachMenu of (childMenu$ | async)">
@@ -21,7 +21,7 @@
 	<!-- ss -->
 	<sub-child-menu [childArticleId]="eachMenu.childArticleId" [courseMaterialId]="courseMaterialId"></sub-child-menu>
 </ion-card>
-<ion-button (click)="addNewChild()" expand="block">
+<ion-button (click)="addNewChild()" expand="block" *ngIf="isMaterialOwner">
 	<ion-icon [src]="stringKey.ICON_ADD" slot="start"></ion-icon>
 	{{'button.addChildMenu' | translate}}
 </ion-button>
