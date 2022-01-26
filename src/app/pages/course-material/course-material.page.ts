@@ -6,19 +6,22 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-01-20 01:23:05
+ * Last modified  : 2022-01-26 20:20:18
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
 import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
 import { CourseMaterialModel } from 'src/app/shared/model/course-material.model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
 import { RootStateFacade } from 'src/app/state/root/root.state.facade';
 import { takeUntil } from 'rxjs/operators';
 import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
 import { TranslateService } from '@ngx-translate/core';
 import { CrudCourseMaterialComponent } from 'src/app/component/crud-course-material/crud-course-material.component';
+import { CookieService } from 'ngx-cookie-service';
+import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
+import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
 
 @Component({
 	selector: "project-users",
@@ -66,6 +69,66 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	 * -------------------------------------------------|
 	 */
 	
+	 get userType()
+	 {
+		 return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
+	 }
+	
+	 get isUserTypeTeacher()
+	 {
+		 return this.userType === UserTypeEnum.Teacher ? true : false;
+	 }
+ 
+	 get isUserTypeStudent()
+	 {
+		 return this.userType === UserTypeEnum.Student ? true : false;
+	 }
+	
+	 get pageTitle()
+	 {
+		 let title = '';
+		 this.translateService
+			.get([
+				'pageTitle.myCourseMaterials',
+				'pageTitle.recommendedCourseMaterials',
+			])
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(async (data) => {
+				if (this.isUserTypeTeacher)
+				{
+					title = data['pageTitle.myCourseMaterials'];
+				}
+				else
+				{
+					title = data['pageTitle.recommendedCourseMaterials'];
+				}
+			});
+			 
+		 return title;
+	 }
+ 
+	 get pageSubTitle()
+	 {
+		 let pageSubTitle = '';
+			 this.translateService
+				 .get([
+					 'pageSubTitle.myCourseMaterials',
+					 'pageSubTitle.recommendedCourseMaterials'
+				 ])
+				 .pipe(takeUntil(this.unsubscribe))
+				 .subscribe(async (data) => {
+					 if (this.isUserTypeTeacher)
+					 {
+						pageSubTitle = `${data['pageSubTitle.myCourseMaterials']}`;
+					 }
+					 else
+					 {
+						pageSubTitle = `${data['pageSubTitle.recommendedCourseMaterials']}`;
+					 }
+				 });
+		 return pageSubTitle;
+	 }
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -84,6 +147,7 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private rootStateFacade: RootStateFacade,
 		private translateService: TranslateService,
+		private cookieService: CookieService
 	)
 	{
 		super(injector);
@@ -217,11 +281,22 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 					if (!hasData)
 					{
 						this.translateService
-							.get('noData.noCourseMaterialData')
+							.get([
+								'noData.noCourseMaterialData',
+								'noData.noRecommendedCourseMaterialData'
+							])
 							.pipe(takeUntil(this.unsubscribe))
 							.subscribe(async (data: string) =>
 							{
-								this.errorMessage = data;
+								if (this.isUserTypeTeacher)
+								{
+									this.errorMessage = data['noData.noCourseMaterialData'];
+								}
+								if (this.isUserTypeStudent)
+								{
+									this.errorMessage = data['noData.noRecommendedCourseMaterialData'];
+								}
+								
 							});
 
 						this.getCourseMaterialMaterial()
@@ -247,7 +322,15 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 				await this.rootStateFacade.startLoading(data);
 			});
 
-		this.courseMaterialStateFacade.requestCourseMaterial();
+		if (this.isUserTypeTeacher)
+		{
+			this.courseMaterialStateFacade.requestCourseMaterial();
+		}
+		else
+		{
+			this.courseMaterialStateFacade.requestRecommendedCourseMaterial();
+		}
+		
 	}
 
 	/**
@@ -296,7 +379,7 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 
 	public navigateToCourseMaterialDetails(courseMaterialId: string)
 	{
-		this.router.navigate([courseMaterialId, 'details', 'article', 'none'], { relativeTo: this.activatedRoute });
+		this.router.navigate([courseMaterialId, 'articles'], { relativeTo: this.activatedRoute });
 	}
 }
 

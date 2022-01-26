@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:19:11 
- * Last modified  : 2022-01-20 00:24:32
+ * Last modified  : 2022-01-26 20:19:40
  */
 
 
@@ -17,6 +17,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 import { CrudCourseMaterialModule } from "src/app/component/crud-course-material/crud-course-material.module";
 import { CustomFieldsModule } from "src/app/component/custom-fields/custom-fields-fields.component.module";
+import { KeywordModule } from "src/app/component/keyword/keyword.component.module";
 import { NoDataModule } from "src/app/component/no-data/no-data.component.module";
 import { PageInfoTitleModule } from "src/app/component/page-info-title/page-info-title.component.module";
 import { PanelHeaderModule } from "src/app/component/panel-header/panel-header.component.module";
@@ -33,7 +34,7 @@ const routes: Routes = [
 		component: CourseMaterialPage
 	},
 	{
-		path: ":courseMaterialId/details",
+		path: ":courseMaterialId/articles",
 		loadChildren: () => import('../course-material-details/course-material-details.module').then( m => m.CourseMaterialDetailsPageModule),
 	}
 ];
@@ -52,6 +53,7 @@ const routes: Routes = [
 		CourseMaterialStateModule,
 		RootStateModule,
 		CrudCourseMaterialModule,
+		KeywordModule,
 		RouterModule.forChild(routes)
 	],
 	declarations: [CourseMaterialPage],

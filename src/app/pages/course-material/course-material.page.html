@@ -8,13 +8,13 @@
 * @author code@rollingarray.co.in
 *
 * Created at     : 2022-01-16 08:18:18 
- * Last modified  : 2022-01-18 23:23:12
+ * Last modified  : 2022-01-26 19:01:28
 */	
  -->
 <!-- header -->
 <ion-header [appScrollTracker]="scrollArea">
 	<ion-toolbar color="primary">
-		<ion-title> {{'pageTitle.courseMaterials' | translate}} </ion-title>
+		<ion-title> {{pageTitle | translate}} </ion-title>
 		<ion-buttons slot="start">
 			<ion-menu-button></ion-menu-button>
 		</ion-buttons>
@@ -26,8 +26,8 @@
 <!-- header -->
 <ion-content #scrollArea scrollEvents="true">
 	<!-- page title -->
-	<app-page-info-title [title]="'pageTitle.courseMaterials' | translate"
-		[info]="'pageSubTitle.courseMaterials' | translate">
+	<app-page-info-title [title]="pageTitle | translate"
+		[info]="pageSubTitle | translate">
 	</app-page-info-title>
 	<!-- page title -->
 
@@ -38,13 +38,14 @@
 	<!-- refresh btn -->
 
 	<!-- add btn -->
-	<ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="createNewCourseMaterial()">
+	<ion-fab *ngIf="isUserTypeTeacher" slot="fixed" vertical="bottom" horizontal="end"
+		(click)="createNewCourseMaterial()">
 		<ion-fab-button color="primary">
 			<ion-icon [src]="stringKey.ICON_ADD"></ion-icon>
 		</ion-fab-button>
 	</ion-fab>
 	<!-- add btn -->
-	
+
 	<!-- no data -->
 	<app-no-data [courseMaterial]="true" *ngIf="!(hasData$ | async)" [text]="errorMessage"></app-no-data>
 	<!-- no data -->
@@ -57,30 +58,39 @@
 					*ngFor="let eachCourseMaterials of (courseMaterials$ | async)">
 
 					<!-- each container -->
-					<ion-card (click)="navigateToCourseMaterialDetails(eachCourseMaterials.courseMaterialId)">
+					<ion-card>
 
 						<!-- data -->
-						<img [src]="stringKey.IMAGE_PANEL_HEADER" />
-						<ion-card-header>
+						<img [src]="stringKey.IMAGE_PANEL_HEADER"
+							(click)="navigateToCourseMaterialDetails(eachCourseMaterials.courseMaterialId)" />
+						<ion-card-header
+							(click)="navigateToCourseMaterialDetails(eachCourseMaterials.courseMaterialId)">
 							<ion-card-subtitle>{{eachCourseMaterials.createdAt | date:'fullDate'}}</ion-card-subtitle>
 							<ion-card-title>{{eachCourseMaterials.courseMaterialName}}</ion-card-title>
 						</ion-card-header>
-						<ion-card-content>
+						<ion-card-content
+							(click)="navigateToCourseMaterialDetails(eachCourseMaterials.courseMaterialId)">
 							{{eachCourseMaterials.courseMaterialDescription}}
 						</ion-card-content>
+						<ion-card-content>
+							<keyword [context]="eachCourseMaterials.courseMaterialDescription"></keyword>
+						</ion-card-content>
 						<!-- data -->
-						
+
 						<!-- operation tool -->
-						<ion-toolbar>
-							<ion-buttons slot="end" class="menu-button"
+						<!-- <ion-toolbar> -->
+						<div class="margin-10-px" *ngIf="isUserTypeTeacher">
+							<ion-button mode="ios"
 								(click)="onCourseMaterialAction(eachCourseMaterials, operationsEnum.EDIT)">
-								<ion-icon size="large" color="primary" [src]="stringKey.ICON_EDIT"></ion-icon>
-							</ion-buttons>
-							<ion-buttons slot="end" class="menu-button"
+								<ion-icon [src]="stringKey.ICON_EDIT"></ion-icon>
+							</ion-button>
+							<ion-button mode="ios"
 								(click)="onCourseMaterialAction(eachCourseMaterials, operationsEnum.DELETE)">
-								<ion-icon size="large" color="primary" [src]="stringKey.ICON_DELETE"></ion-icon>
-							</ion-buttons>
-						</ion-toolbar>
+								<ion-icon [src]="stringKey.ICON_DELETE"></ion-icon>
+							</ion-button>
+						</div>
+
+						<!-- </ion-toolbar> -->
 						<!-- operation tool -->
 
 					</ion-card>
