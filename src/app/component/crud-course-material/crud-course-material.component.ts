@@ -74,6 +74,8 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 */
 	private _modalData!: ModalData;
 
+	private _keyWordContext = '';
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -176,6 +178,11 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 		return this.formGroup.get('courseMaterialDescription');
 	}
 
+	get keyWordContext()
+	{
+		return this._keyWordContext;
+	}
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -403,5 +410,11 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 		this.courseMaterialStateFacade.actUponCourseMaterial(courseMaterialModel, OperationsEnum.NONE);
 
 		this.modalController.dismiss();
+	}
+
+	extractKeyWords()
+	{
+		const form = this.formGroup.value;
+		return this._keyWordContext = form.availabilityContext;
 	}
 }

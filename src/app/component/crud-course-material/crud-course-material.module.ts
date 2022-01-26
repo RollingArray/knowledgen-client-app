@@ -16,6 +16,7 @@ import { RouterModule } from '@angular/router';
 import { CrudCourseMaterialComponent } from './crud-course-material.component';
 import { PageInfoTitleModule } from '../page-info-title/page-info-title.component.module';
 import { SharedModule } from 'src/app/shared/module/shared.module';
+import { KeywordModule } from '../keyword/keyword.component.module';
 //import { CustomTitleModule } from '../custom-title/custom-title.module';
 //import { MessageModule } from '@rc-enterprise/message';
 
@@ -28,7 +29,8 @@ import { SharedModule } from 'src/app/shared/module/shared.module';
 		TranslateModule,
 		RouterModule,
 		PageInfoTitleModule,
-		SharedModule
+		SharedModule,
+		KeywordModule
 	],
 
 	declarations: [CrudCourseMaterialComponent],

@@ -8,7 +8,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-01-16 08:20:54 
+ * Last modified  : 2022-01-26 18:44:45
  */
 -->
 
@@ -71,7 +71,7 @@
 						</ion-item>
 						<ion-card lines="none" color="light">
 							<ion-item lines="none" color="light">
-								<ion-textarea rows="6" cols="20" autocomplete="off"
+								<ion-textarea debounce="1000" (ionChange)="extractKeyWords()" rows="6" cols="20" autocomplete="off"
 									formControlName="courseMaterialDescription" type="text">
 								</ion-textarea>
 							</ion-item>
@@ -82,6 +82,9 @@
 									{{'validation.required'|translate}}
 								</ion-item>
 							</ion-card>
+							<!-- keyword -->
+							<keyword [context]="keyWordContext"></keyword>
+							<!-- keyword -->
 						</ion-card>
 					</ion-card>
 					<!-- course description -->
