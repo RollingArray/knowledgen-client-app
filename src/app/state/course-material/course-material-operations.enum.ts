@@ -6,13 +6,14 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:11:59 
- * Last modified  : 2022-01-14 18:12:25
+ * Last modified  : 2022-01-26 18:08:19
  */
 
 
 
 export enum CourseMaterialOperationsEnum {
   API_REQUEST_COURSE_MATERIAL = '[Course Material] Api Request Course Material',
+  API_REQUEST_RECOMMENDED_COURSE_MATERIAL = '[Course Material] Api Request Recommended Course Material',
   LOADED_REQUEST_COURSE_MATERIAL = '[Course Material] Loaded Course Material',
   ACT_UPON_COURSE_MATERIAL = '[Course Material] Act Upon Course Material',
   API_REQUEST_ADD_NEW_COURSE_MATERIAL = '[Course Material] Send Api Request To Add New Course Material',
