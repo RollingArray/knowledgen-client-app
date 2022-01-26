@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-01-23 15:41:37
+ * Last modified  : 2022-01-26 22:20:33
  */
 
 
@@ -629,7 +629,8 @@ export class StringKey {
 	public static readonly ICON_TIME: string = StringKey.ICON_BASE_PATH + "time.svg";
 	public static readonly ICON_ONLINE_VIDEO: string = StringKey.ICON_BASE_PATH + "online-video.svg";
 	public static readonly ICON_CHECK: string = StringKey.ICON_BASE_PATH + "check.svg";
-	
+	public static readonly ICON_SUMMERY: string = StringKey.ICON_BASE_PATH + "summery.svg";
+
 	public static readonly IMAGE_BASE_PATH: string = "assets/images/";
 	public static readonly IMAGE_ICON: string = StringKey.IMAGE_BASE_PATH + "app_icon.svg";
 	public static readonly IMAGE_AVATAR: string = StringKey.IMAGE_BASE_PATH + "app_avatar.svg";
@@ -643,7 +644,7 @@ export class StringKey {
 	public static readonly IMAGE_INCLUSION_DONE: string = StringKey.IMAGE_BASE_PATH + "inclusion.svg";
 	public static readonly IMAGE_PASSWORD_LESS: string = StringKey.IMAGE_BASE_PATH + "password_less.svg";
 	public static readonly IMAGE_PANEL_HEADER: string = StringKey.IMAGE_BASE_PATH + "panel-header.svg";
-	
+	public static readonly IMAGE_PLANNER_HEADER: string = StringKey.IMAGE_BASE_PATH + "planner-header.svg";
 	
 	public static readonly IMAGE_PH: string = "https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=325427&theme=light";
 	
