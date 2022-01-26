@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 10:16:05 
- * Last modified  : 2022-01-25 21:06:08
+ * Last modified  : 2022-01-26 20:12:30
  */
 
 
@@ -18,6 +18,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
 import { EncryptionService } from './encryption.service';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -65,6 +66,8 @@ export class LocalStorageService
 	 * Intro status$ of local storage service
 	 */
 	public introStatus$ = new BehaviorSubject<string>("");
+
+	path = { path: environment.domain };
 	
 	/**
 	 * Creates an instance of local storage service.
@@ -167,13 +170,13 @@ export class LocalStorageService
 	 */
 	setActiveUser(userModel: UserModel): Observable<boolean> {
 		const observable$ = new BehaviorSubject<boolean>(false);
-
-		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_TYPE, userModel.userType);
-		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_ID, userModel.userId);
-		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME, userModel.userFirstName);
-		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_LAST_NAME, userModel.userLastName);
-		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_EMAIL, userModel.userEmail);
-		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_SKILLS, userModel.userSkills);
+		
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_TYPE, userModel.userType, this.path);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_ID, userModel.userId, this.path);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME, userModel.userFirstName, this.path);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_LAST_NAME, userModel.userLastName, this.path);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_EMAIL, userModel.userEmail, this.path);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_SKILLS, userModel.userSkills, this.path);
 		
 		observable$.next(true);
 		return observable$.asObservable();
@@ -187,10 +190,10 @@ export class LocalStorageService
 	updateActiveUserDetails(userModel: UserModel): Observable<boolean> {
 		const observable$ = new BehaviorSubject<boolean>(false);
 
-		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME, userModel.userFirstName);
-		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_LAST_NAME, userModel.userLastName);
-		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_EMAIL, userModel.userEmail);
-		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_SKILLS, userModel.userSkills);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME, userModel.userFirstName, this.path);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_LAST_NAME, userModel.userLastName, this.path);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_EMAIL, userModel.userEmail, this.path);
+		this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_SKILLS, userModel.userSkills, this.path);
 
 		observable$.next(true);
 		return observable$.asObservable();
@@ -204,7 +207,7 @@ export class LocalStorageService
 	updateActiveUserToken(userModel: UserModel): Observable<boolean> {
 		const observable$ = new BehaviorSubject<boolean>(false);
 
-		this.cookieService.set(`${LocalStoreKey.LOGGED_IN_SESSION_ID}`, userModel.token);
+		this.cookieService.set(`${LocalStoreKey.LOGGED_IN_SESSION_ID}`, userModel.token, this.path);
 
 		observable$.next(true);
 		return observable$.asObservable();
@@ -218,9 +221,9 @@ export class LocalStorageService
 	setSignUpUserDetails(userModel: UserModel): Observable<boolean> {
 		const observable$ = new BehaviorSubject<boolean>(false);
 
-		this.cookieService.set(`${LocalStoreKey.LOGGED_IN_USER_FIRST_NAME}`, userModel.userFirstName);
-		this.cookieService.set(`${LocalStoreKey.LOGGED_IN_USER_LAST_NAME}`, userModel.userLastName);
-		this.cookieService.set(`${LocalStoreKey.LOGGED_IN_USER_EMAIL}`, userModel.userEmail);
+		this.cookieService.set(`${LocalStoreKey.LOGGED_IN_USER_FIRST_NAME}`, userModel.userFirstName, this.path);
+		this.cookieService.set(`${LocalStoreKey.LOGGED_IN_USER_LAST_NAME}`, userModel.userLastName, this.path);
+		this.cookieService.set(`${LocalStoreKey.LOGGED_IN_USER_EMAIL}`, userModel.userEmail, this.path);
 
 		observable$.next(true);
 		return observable$.asObservable();
@@ -233,7 +236,13 @@ export class LocalStorageService
 	removeActiveUser(): Observable<boolean> {
 		const observable$ = new BehaviorSubject<boolean>(false);
 
-		localStorage.clear();
+		//this.cookieService.deleteAll(environment.domain);
+		this.cookieService.delete(LocalStoreKey.LOGGED_IN_USER_ID, environment.domain);
+		this.cookieService.delete(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME, environment.domain);
+		this.cookieService.delete(LocalStoreKey.LOGGED_IN_USER_LAST_NAME, environment.domain);
+		this.cookieService.delete(LocalStoreKey.LOGGED_IN_USER_EMAIL, environment.domain);
+		this.cookieService.delete(LocalStoreKey.LOGGED_IN_USER_SKILLS, environment.domain);
+		this.cookieService.delete(LocalStoreKey.LOGGED_IN_SESSION_ID, environment.domain);  
 
 		observable$.next(true);
 		return observable$.asObservable();
