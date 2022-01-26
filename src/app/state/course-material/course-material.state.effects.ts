@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:06:25 
- * Last modified  : 2022-01-19 23:12:59
+ * Last modified  : 2022-01-26 18:35:53
  */
 
 import { Injectable } from "@angular/core";
@@ -76,6 +76,42 @@ export class CourseMaterialStateEffects {
 				),
 			),
 	);
+
+	apiRequestRecommendedCourseMaterial$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_ACTIONS.API_REQUEST_RECOMMENDED_COURSE_MATERIAL
+				),
+				mergeMap(action =>
+
+					this.courseMaterialService.getRecommendedCourseMaterial().pipe(
+						map((data) =>
+						{
+							
+							// stop loader
+							this.rootStateFacade.stopLoading();
+
+							// if success response
+							if (data.data.success) {
+								// store retrieved categories
+								return COURSE_MATERIAL_ACTIONS.LOADED_REQUEST_COURSE_MATERIAL({ payload: data.data.data });
+							}
+
+
+							// response fail
+							else {
+								return COURSE_MATERIAL_ACTIONS.NOOP();
+							}
+
+						}),
+						catchError(() => EMPTY)
+					),
+				),
+			),
+	);
+
+	
 
 	/**
 	 * @description Add new category$ of global skill category state effects

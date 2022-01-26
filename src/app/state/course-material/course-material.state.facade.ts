@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:06:25 
- * Last modified  : 2022-01-19 22:59:26
+ * Last modified  : 2022-01-26 18:35:08
  */
 
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
@@ -50,8 +50,11 @@ export class CourseMaterialStateFacade {
 	/**
 	 * Course material by course material id$ of course material model state facade
 	 */
-	 public courseMaterialByCourseMaterialId$ = (courseMaterialId: string) => this.courseMaterialStore.select(COURSE_MATERIAL_QUERY_SELECTOR.selectCourseMaterialByCourseMaterialId(courseMaterialId));
+	public courseMaterialByCourseMaterialId$ = (courseMaterialId: string) => this.courseMaterialStore.select(COURSE_MATERIAL_QUERY_SELECTOR.selectCourseMaterialByCourseMaterialId(courseMaterialId));
+	
+	public courseMaterialOwner$ = (courseMaterialId: string) => this.courseMaterialStore.select(COURSE_MATERIAL_QUERY_SELECTOR.selectCourseMaterialOwner(courseMaterialId));
 
+	 
 	/**
 	 * Course material curd operation status$ of course material model state facade
 	 */
@@ -67,7 +70,11 @@ export class CourseMaterialStateFacade {
 	 */
 	public requestCourseMaterial() {
 		 this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.API_REQUEST_COURSE_MATERIAL());
-	 }
+	}
+	
+	public requestRecommendedCourseMaterial() {
+		this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.API_REQUEST_RECOMMENDED_COURSE_MATERIAL());
+	}
 
 	/**
 	 * Adds new global skill course material

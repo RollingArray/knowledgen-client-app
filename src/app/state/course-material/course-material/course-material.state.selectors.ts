@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:23:54 
- * Last modified  : 2022-01-19 23:31:18
+ * Last modified  : 2022-01-26 14:55:02
  */
 
 import {
@@ -72,6 +72,13 @@ export const selectCourseMaterialHasData = createSelector(
 const selectCourseMaterialByCourseMaterialId = (courseMaterialIdId: string) => 
 	createSelector(selectCourseMaterialState, (state) => state.entities[courseMaterialIdId]);
 
+const selectCourseMaterialOwner = (courseMaterialIdId: string) => 
+	createSelector(selectCourseMaterialState, (state) =>
+	{
+		console.log(state.entities[courseMaterialIdId]);
+		return '61e05785ad070'; //state.entities[courseMaterialIdId].userId;
+	});
+
 /**
  * @description export User skill categories query to access all selectors
  */
@@ -80,10 +87,6 @@ export const COURSE_MATERIAL_QUERY_SELECTOR = {
 	selectAllCourseMaterialIds,
 	selectCourseMaterialTotalNumber,
 	selectCourseMaterialHasData,
+	selectCourseMaterialOwner,
 	selectCourseMaterialByCourseMaterialId
 };
-
-function createSelectorWithProps(selectCourseMaterialState: MemoizedSelector<CourseMaterialStateModel, CourseMaterialStateModel, import("@ngrx/store").DefaultProjectorFn<CourseMaterialStateModel>>, selectEntities: (state: import("@ngrx/entity").EntityState<import("../../../shared/model/course-material.model").CourseMaterialModel>) => import("@ngrx/entity").Dictionary<import("../../../shared/model/course-material.model").CourseMaterialModel>, arg2: (selectCourseMaterialEntity: any) => any)
-{
-	throw new Error('Function not implemented.');
-}

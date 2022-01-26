@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:16:13 
- * Last modified  : 2022-01-14 18:16:13 
+ * Last modified  : 2022-01-26 18:08:34
  */
 
 import { createAction, props } from '@ngrx/store';
@@ -20,6 +20,10 @@ import { CourseMaterialOperationsEnum } from './course-material-operations.enum'
  */
 export const API_REQUEST_COURSE_MATERIAL = createAction(
 	CourseMaterialOperationsEnum.API_REQUEST_COURSE_MATERIAL
+);
+
+export const API_REQUEST_RECOMMENDED_COURSE_MATERIAL = createAction(
+	CourseMaterialOperationsEnum.API_REQUEST_RECOMMENDED_COURSE_MATERIAL
 );
 
 /**
@@ -133,6 +137,7 @@ export const NOOP = createAction(
  */
 export const COURSE_MATERIAL_ACTIONS = {
 	API_REQUEST_COURSE_MATERIAL,
+	API_REQUEST_RECOMMENDED_COURSE_MATERIAL,
 	LOADED_REQUEST_COURSE_MATERIAL,
 	ACT_UPON_COURSE_MATERIAL,
 	API_REQUEST_ADD_NEW_COURSE_MATERIAL,
