@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:27:57 
- * Last modified  : 2022-01-21 20:48:05
+ * Last modified  : 2022-01-26 18:33:59
  */
 
 
@@ -56,6 +56,11 @@ export class CourseMaterialService extends BaseService<BaseModel> {
 	getCourseMaterial(): Observable<BaseModel>
 	{
 		return this.get(`${ApiUrls.COURSE_MATERIAL}`);
+	}
+
+	getRecommendedCourseMaterial(): Observable<BaseModel>
+	{
+		return this.get(`${ApiUrls.RECOMMENDED_COURSE_MATERIAL}`);
 	}
 
 	/**
