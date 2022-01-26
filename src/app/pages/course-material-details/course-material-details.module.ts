@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:19:11 
- * Last modified  : 2022-01-20 00:24:59
+ * Last modified  : 2022-01-25 23:03:35
  */
 
 
@@ -16,6 +16,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 import { CustomFieldsModule } from "src/app/component/custom-fields/custom-fields-fields.component.module";
+import { KnowledgeBaseArticleModule } from "src/app/component/knowledge-base-article/knowledge-base-article.module";
 import { NoDataModule } from "src/app/component/no-data/no-data.component.module";
 import { PageInfoTitleModule } from "src/app/component/page-info-title/page-info-title.component.module";
 import { PanelHeaderModule } from "src/app/component/panel-header/panel-header.component.module";
@@ -54,6 +55,7 @@ const routes: Routes = [
 		CourseMaterialMenuStateModule,
 		RootStateModule,
 		ParentMenuModule,
+		KnowledgeBaseArticleModule,
 		RouterModule.forChild(routes)
 	],
 	declarations: [CourseMaterialDetailsPage],

@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-01-25 18:12:39
+ * Last modified  : 2022-01-26 16:10:41
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -21,6 +21,8 @@ import { CourseMaterialMenuStateFacade } from 'src/app/state/course-material-men
 import { CourseMaterialModel } from 'src/app/shared/model/course-material.model';
 import { CourseMaterialStateModel } from 'src/app/state/course-material/course-material/course-material.state.model';
 import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
+import { ParentMenuComponent } from 'src/app/component/parent-menu/parent-menu.component';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
 	selector: "project-users",
@@ -56,6 +58,10 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	 */
 	courseMaterial$!: Observable<CourseMaterialModel>;
 
+	firstParentMenuId$: Observable<string | number>;
+
+	selectedArticle: string;
+
 	private _courseMaterialId: string;
 
 	/**
@@ -89,6 +95,7 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private rootStateFacade: RootStateFacade,
 		private translateService: TranslateService,
+		private popoverController: PopoverController
 	)
 	{
 		super(injector);
@@ -101,29 +108,30 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	{
 		const courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(courseMaterialId);
-		const firstParentMenuId$ = this.courseMaterialMenuStateFacade.getFirstParentMenuId$;
-
-		firstParentMenuId$.subscribe(articleId =>
+		this.firstParentMenuId$ = this.courseMaterialMenuStateFacade.getFirstParentMenuId$;
+		console.log(this.selectedArticle);
+		this.firstParentMenuId$.subscribe(articleId =>
 		{
 			if (articleId)
 			{
-				this.router.navigate([
-					'go/course/material',
-					courseMaterialId,
-					'details',
-					'article',
-					articleId
-				]);
+				this.selectedArticle = articleId as string;
+				// this.router.navigate([
+				// 	'go/course/material',
+				// 	courseMaterialId,
+				// 	'details',
+				// 	'article',
+				// 	articleId
+				// ]);
 			}
 			else
 			{
-				this.router.navigate([
-					'go/course/material',
-					courseMaterialId,
-					'details',
-					'article',
-					'none'
-				]);
+				// this.router.navigate([
+				// 	'go/course/material',
+				// 	courseMaterialId,
+				// 	'details',
+				// 	'article',
+				// 	'none'
+				// ]);
 			}
 			
 		})
@@ -145,7 +153,36 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	 * -------------------------------------------------|
 	 */
 
+	/**
+	 * @description Knowledges base navigation
+	 * @param ev 
+	 */
+	 async knowledgeBaseNavigation(ev: any) {
+		const popover = await this.popoverController.create({
+			component: ParentMenuComponent,
+			cssClass: 'popover-view',
+			event: ev,
+			componentProps: {
+				// data: this._rootMenuModel,
+				// selectedMenu: this._articleId
+			}
+		});
+		await popover.present();
+
+		// check the return data
+		popover.onDidDismiss().then(async data => {
+			if (data.data.returnData) {
+				//this.gotoPage(data.data.returnData);
+			}
+
+		});
+	 }
 	
+	gotoPage(articleId  : string)
+	{
+		console.log(articleId);
+		this.selectedArticle = articleId as string;
+	 }
 	
 }
 
