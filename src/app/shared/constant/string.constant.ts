@@ -6,13 +6,13 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-01-26 22:20:33
+ * Last modified  : 2022-01-27 09:52:32
  */
 
 
 export class StringKey {
 
-	public static readonly APP_NAME: string = 'C2';
+	public static readonly APP_NAME: string = 'KnowledgeN';
 	public static readonly APP_TAG_LINE: string = 'Bring Equality In Diverse Workforce';
 	public static readonly APP_VERSION: string = '6.2.0';
 	public static readonly APP_BUNDLE_ID: string = 'in.co.rollingarray.c2';
@@ -20,7 +20,7 @@ export class StringKey {
 	public static readonly BORN: string = 'Designed & Crafted in India 🇮🇳 with ❤️';
 	public static readonly COPY: string = ' © ';
 	public static readonly RA: string = 'rollingarray.co.in';
-	public static readonly PH_ALT: string = 'C2 - Bring equality in diverse workforce | Product Hunt';
+	public static readonly PH_ALT: string = 'KnowledgeN - Bring equality in diverse workforce | Product Hunt';
 
 	// page text
 
@@ -137,8 +137,8 @@ export class StringKey {
 	public static readonly PASS_LESS_INFO_1: string = 'Password-less authentication is a method of verifying users’ identities without the use of passwords or any other memorized secret.Instead of passwords, identity can be verified based on a “possession factor”, which is an object that uniquely identifies the user (e.g. a one-time password generator, a registered mobile device, or a hardware token) or an “inherent factor” like a person’s biometric signature (e.g. fingerprint, face, retina, etc.). Unlike possession or inherent factors, authentication that is based on something the user knows (such as a password, passphrase, or PIN code) is susceptible to easy theft, sharing by users, and requires constant management and handling by both users and IT managers.'
 	public static readonly PASS_LESS_INFO_HEADER_2: string = 'Why Password-less Authentication Is Better than a Password';
 	public static readonly PASS_LESS_INFO_2: string = 'Password-less authentication creates a smoother experience than traditional username and password (U/P) authentication for both you and your users (that can be more secure if it relies on WebAuthn). Not only does this save you money, but it can even lead to an increase in sales in some cases.'
-	public static readonly PASS_LESS_INFO_HEADER_3: string = 'How C2 leverage Password-less Authentication';
-	public static readonly PASS_LESS_INFO_3_1: string = 'C2 works with a no-password system, because our users appreciate not having to remember another password, especially when on mobile.';
+	public static readonly PASS_LESS_INFO_HEADER_3: string = 'How KnowledgeN leverage Password-less Authentication';
+	public static readonly PASS_LESS_INFO_3_1: string = 'KnowledgeN works with a no-password system, because our users appreciate not having to remember another password, especially when on mobile.';
 	public static readonly PASS_LESS_INFO_3_2: string = 'While creating new account, use an active email to create an account. System will send an OTP to the email.'
 	public static readonly PASS_LESS_INFO_3_3: string = 'Use the OTP provided in email to verify your account.'
 	
@@ -305,8 +305,8 @@ export class StringKey {
 	public static readonly FORM_INFO_PERSONAL_DETAILS: string = 'Provide some of your personal details';
 	public static readonly FORM_INFO_CREDENTIAL_DETAILS: string = 'Provide your credential, we will use this while you sign in';
 	public static readonly FORM_INFO_CREDENTIAL_EMAIL: string = 'Provide your registered email';
-	public static readonly FORM_INFO_PASSWORD_LESS: string = '<b>C2</b> works with a password-less system';
-	public static readonly FORM_INFO_TERMS: string = '<b>C2</b> Terms & Conditions';
+	public static readonly FORM_INFO_PASSWORD_LESS: string = '<b>KnowledgeN</b> works with a password-less system';
+	public static readonly FORM_INFO_TERMS: string = '<b>KnowledgeN</b> Terms & Conditions';
 	public static readonly FORM_INFO_SECURITY_DETAILS: string = 'Answer these security question, we will use this to identify you if you wish to reset your password';
 	public static readonly FORM_INFO_PROFILE_PERSONAL_DETAILS: string = 'Your personal details';
 	public static readonly FORM_INFO_PROFILE_CREDENTIAL_DETAILS: string = 'Your credential, you use this email to sign in';
@@ -525,7 +525,7 @@ export class StringKey {
 	//error message
 	public static readonly NO_DATA_PROJECT_ADMIN: string = 'A project can not run without an administrator. Add a new administrator';
 	public static readonly NO_DATA_PROJECT_MEMBER: string = 'A project is very lonely without it\'s members, add a new member';
-	public static readonly NO_DATA_DIVERSITY: string = 'Diverse workforce is the key to a successful project. Add Members to the project and assign them Activities. C2 algorithm will generate Credibility Index for each Assignee based on the Reviews';
+	public static readonly NO_DATA_DIVERSITY: string = 'Diverse workforce is the key to a successful project. Add Members to the project and assign them Activities. KnowledgeN algorithm will generate Credibility Index for each Assignee based on the Reviews';
 	public static readonly NO_DATA_CREDIBILITY: string = 'Hold tight, we are looking for you data';
 	public static readonly HOLD_TIGHT: string = 'Hold tight, we are looking for your data';
 	public static readonly NO_DATA_PROJECT_REVIEWER_OTHER: string = 'No reviews are yet available';
@@ -541,9 +541,9 @@ export class StringKey {
 	public static readonly NO_DATA_ADMIN: string = 'No pending request has been found';
 	public static readonly NO_FILTER: string = 'Select Entity to refine your result';
 
-	public static readonly WHAT_WE_ARE: string = 'What is C2';
-	public static readonly WHAT_WE_ARE_INFO_1: string = 'C2 is a platform designed to nullify any bias in terms of race, age, gender, disability and culture when treating a workforce and provide measurable matrix for a best fit person to grab a new opportunities';
-	public static readonly WHAT_WE_ARE_INFO_2: string = 'C2 has the power to generate meaningful credibility metric for each individual team member by analysing the feedbacks provided by the reviewers of the deliverables';
+	public static readonly WHAT_WE_ARE: string = 'What is KnowledgeN';
+	public static readonly WHAT_WE_ARE_INFO_1: string = 'KnowledgeN is a platform designed to nullify any bias in terms of race, age, gender, disability and culture when treating a workforce and provide measurable matrix for a best fit person to grab a new opportunities';
+	public static readonly WHAT_WE_ARE_INFO_2: string = 'KnowledgeN has the power to generate meaningful credibility metric for each individual team member by analysing the feedbacks provided by the reviewers of the deliverables';
 	public static readonly COPYRIGHT: string = '© Copyright';
 	public static readonly OWNER_EMAIL: string = 'rollingarray.co.in';
 	public static readonly SUPPORT_EMAIL: string = 'support@rollingarray.co.in';
@@ -552,8 +552,8 @@ export class StringKey {
 	public static readonly T_N_C_INFO: string = 'Read how we set the rights and responsibilities of anyone using the site / app';
 	public static readonly P_P: string = 'Privacy';
 	public static readonly P_P_INFO: string = 'Read how we collect, store, protect, and utilize personal data provided by the users';
-	public static readonly FAQ: string = 'C2 is an Open Source Project, explore more about C2 on Github';
-	public static readonly KNOWLEDGE_BASE: string = 'Learn more at C2 Knowledge Base';
+	public static readonly FAQ: string = 'KnowledgeN is an Open Source Project, explore more about KnowledgeN on Github';
+	public static readonly KNOWLEDGE_BASE: string = 'Learn more at KnowledgeN Knowledge Base';
 	public static readonly FAQ_INFO: string = 'Read our FAQ to het answers to your questions';
 	public static readonly FAQ_Q_2: string = 'Are you officially supporting any shopping online site or any supplier or a project';
 	public static readonly FAQ_A_2: string = 'No, we do not';
