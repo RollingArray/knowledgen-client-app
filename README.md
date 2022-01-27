@@ -12,6 +12,12 @@ There is a clear gap of volunteers who can come forward for these children’s a
 Anyone willing get any assistance, they can join as Mentee.
 Mentors can create open course material, and and mentorship session. While, mentees can find the ideal mentor to clarify their subject doubts
 
+## :small_orange_diamond: Repository
+| Area | Repo |
+|---|---|
+| Client app | [https://github.com/RollingArray/knowledgen-client-app](https://github.com/RollingArray/knowledgen-client-app) |
+| Server Api | [https://github.com/RollingArray/knowledgen-server-api](https://github.com/RollingArray/knowledgen-server-api) |
+
 > ### :small_red_triangle: Client App
 > Follow below guidelines to setup KnowledgeN app on your Windows/Mac/Linux machine
 > 
