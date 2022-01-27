@@ -19,7 +19,7 @@ export class UpdateCheckerService {
 		 {
 			 this.swUpdate.available.subscribe(() =>
 			 {
-				 let versionUpdateMessage = `New version of C2 is available. Load New Version ?`;
+				 let versionUpdateMessage = `New version of KnowledgeN is available. Load New Version ?`;
  
 				 if (confirm(versionUpdateMessage))
 				 {
