@@ -11,7 +11,7 @@ export class AlertService {
 	async presentBasicAlert(message: string) {
 		return await this.alertController
 			.create({
-				header: 'C2',
+				header: 'KnowledgeN',
 				message,
 				buttons: ['Okay']
 			})
