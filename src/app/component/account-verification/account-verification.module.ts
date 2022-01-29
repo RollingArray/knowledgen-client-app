@@ -16,12 +16,14 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { AccountVerificationComponent } from './account-verification.component';
 import { PageInfoTitleModule } from 'src/app/component/page-info-title/page-info-title.component.module';
+import { I18nModule } from 'src/app/shared/module/i18n.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		SharedModule,
 		IonicModule,
+		I18nModule,
 		PageInfoTitleModule
 	],
 

@@ -20,6 +20,7 @@ import { SignUpPage } from './sign-up.page';
 import { SharedModule } from 'src/app/shared/module/shared.module';
 import { PageInfoTitleModule } from 'src/app/component/page-info-title/page-info-title.component.module';
 import { AccountVerificationModule } from 'src/app/component/account-verification/account-verification.module';
+import { I18nModule } from 'src/app/shared/module/i18n.module';
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
     SharedModule,
     PageInfoTitleModule,
     AccountVerificationModule,
+    I18nModule,
     RouterModule.forChild(routes)
   ],
   declarations: [SignUpPage]

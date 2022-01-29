@@ -449,8 +449,8 @@ export class StringKey {
 	public static readonly LOGOUT: string = 'Logout';
 	public static readonly LEARN: string = 'Learn';
 	public static readonly SIGN_UP: string = 'Sign Up';
-	public static readonly SIGN_UP_STUDENT: string = 'Enroll As Student';
-	public static readonly SIGN_UP_TEACHER: string = 'Enroll As Teacher';
+	public static readonly SIGN_UP_STUDENT: string = 'Enroll As Mentee';
+	public static readonly SIGN_UP_TEACHER: string = 'Enroll As Mentor';
 	public static readonly RESET_PASSWORD_CODE: string = 'Reset Password Code';
 	public static readonly ALREADY_HAVE_CODE: string = 'Already Have Code';
 	public static readonly UPDATE_PASSWORD: string = 'Update Password';

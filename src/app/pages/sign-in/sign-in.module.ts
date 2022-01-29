@@ -19,6 +19,7 @@ import { IonicModule } from '@ionic/angular';
 import { SignInPage } from './sign-in.page';
 import { SharedModule } from 'src/app/shared/module/shared.module';
 import { AccountVerificationModule } from 'src/app/component/account-verification/account-verification.module';
+import { I18nModule } from 'src/app/shared/module/i18n.module';
 
 const routes: Routes = [
   {
@@ -33,6 +34,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule,
     PageInfoTitleModule,
+    I18nModule,
     AccountVerificationModule
   ],
   declarations: [SignInPage]

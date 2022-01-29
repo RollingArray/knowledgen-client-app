@@ -65,6 +65,10 @@ ion-col {
   color: white;
 }
 
+.app-logo{
+  width: 80%; 
+  margin: 50px auto 0 auto;
+}
 /* Table properties*/
 table {
   border-collapse: collapse;
@@ -170,7 +174,7 @@ td:last-child {
   }
 
 /*Variable font size */
-@for $i from 10 through 100 {
+@for $i from 10 through 300 {
 	.font-size-#{$i}-px {
 		font-size: #{$i}px;
 	}
